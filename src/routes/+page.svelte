@@ -3,7 +3,30 @@
 	import { profile, diceFacts } from '$lib/data/profile';
 	import { publications } from '$lib/data/publications';
 	import { hackathons, writing } from '$lib/data/hackathons';
+	import { roles, education, skills } from '$lib/data/experience';
 	import Die from '$lib/Die.svelte';
+
+	const MONTHS = [
+		'Jan',
+		'Feb',
+		'Mar',
+		'Apr',
+		'May',
+		'Jun',
+		'Jul',
+		'Aug',
+		'Sep',
+		'Oct',
+		'Nov',
+		'Dec'
+	];
+
+	// 'present' passes through; otherwise YYYY-MM renders as "Mon YYYY".
+	function when(ym: string) {
+		if (ym === 'present') return 'present';
+		const [y, m] = ym.split('-');
+		return `${MONTHS[Number(m) - 1]} ${y}`;
+	}
 
 	let fact = $state('Roll the die for something you didn’t ask to know.');
 	let rolled = $state(false);
@@ -79,6 +102,61 @@
 		</div>
 		<a class="more" href="{base}/hackathons">All {wins} of them →</a>
 	</article>
+</section>
+
+<section>
+	<h2 class="centerline">Where I've worked</h2>
+	<ol class="timeline">
+		{#each roles as r}
+			<li>
+				<p class="when">{when(r.start)} – {when(r.end)}</p>
+				<div>
+					<h3>
+						{#if r.link}
+							<a href={r.link} target="_blank" rel="noopener noreferrer">{r.title}</a>
+						{:else}
+							{r.title}
+						{/if}
+					</h3>
+					<p class="org">{r.org}</p>
+					<div class="tags">
+						{#each r.skills as s}<span class="tag">{s}</span>{/each}
+					</div>
+				</div>
+			</li>
+		{/each}
+	</ol>
+</section>
+
+<section>
+	<h2 class="centerline">Education</h2>
+	<div class="edu">
+		{#each education as e}
+			<article class="card">
+				<p class="eyebrow">{when(e.start)} – {when(e.end)}</p>
+				<h3>{e.degree}</h3>
+				<p class="org">{e.org}</p>
+				<p class="thesis">
+					<span class="label">Thesis</span>
+					{e.thesis}{#if e.inProgress}<span class="tag wip">in progress</span>{/if}
+				</p>
+			</article>
+		{/each}
+	</div>
+</section>
+
+<section>
+	<h2 class="centerline">Tools of the trade</h2>
+	<div class="skills">
+		{#each Object.entries(skills) as [level, list]}
+			<div>
+				<p class="label">{level}</p>
+				<div class="tags">
+					{#each list as s}<span class="tag">{s}</span>{/each}
+				</div>
+			</div>
+		{/each}
+	</div>
 </section>
 
 <section>
@@ -207,6 +285,86 @@
 		color: var(--red);
 	}
 
+	.timeline {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		gap: 0.1rem;
+	}
+
+	.timeline li {
+		display: grid;
+		grid-template-columns: 11rem 1fr;
+		gap: 1rem;
+		padding: 1.1rem 0.25rem;
+		border-bottom: 1px solid var(--rule);
+	}
+
+	.timeline h3 {
+		font-size: 1.05rem;
+		margin: 0 0 0.15rem;
+	}
+
+	.timeline h3 a {
+		text-decoration: none;
+	}
+
+	.timeline h3 a:hover {
+		text-decoration: underline;
+	}
+
+	.when {
+		font-family: var(--display);
+		font-size: 0.85rem;
+		color: var(--red);
+		margin: 0.15rem 0 0;
+	}
+
+	.org {
+		color: var(--ink-soft);
+		font-size: 0.92rem;
+		margin: 0 0 0.6rem;
+	}
+
+	.edu {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+		gap: 1rem;
+	}
+
+	.edu h3 {
+		font-size: 1.15rem;
+		margin: 0.3rem 0 0.15rem;
+	}
+
+	.thesis {
+		margin: 0;
+		font-size: 0.92rem;
+		color: var(--ink-soft);
+	}
+
+	.label {
+		display: block;
+		font-family: var(--display);
+		font-weight: 600;
+		font-size: 0.75rem;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--teal);
+		margin: 0 0 0.25rem;
+	}
+
+	.tag.wip {
+		margin-left: 0.5rem;
+	}
+
+	.skills {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+		gap: 1.5rem;
+	}
+
 	.writing {
 		list-style: none;
 		padding: 0;
@@ -246,6 +404,10 @@
 		}
 		.fact {
 			min-height: 0;
+		}
+		.timeline li {
+			grid-template-columns: 1fr;
+			gap: 0.35rem;
 		}
 	}
 </style>

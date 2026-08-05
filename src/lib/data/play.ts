@@ -1,13 +1,22 @@
-// The fun page. All placeholders you should overwrite with your actual favourites —
-// I know you like board games and Wing Chun, but not which games or which lineage.
+// The games I actually play. The `why` lines are mine to rewrite whenever the
+// mood changes — nothing else on the page depends on their wording.
 
 export const games = [
-	{ title: 'Brass: Birmingham', why: 'Placeholder — swap for a game you actually evangelise.', weight: 'heavy' },
-	{ title: 'Wingspan', why: 'Placeholder.', weight: 'medium' },
-	{ title: 'Codenames', why: 'Placeholder — the one that works with non-gamers.', weight: 'light' },
-	{ title: 'Spirit Island', why: 'Placeholder — the co-op that ruins evenings.', weight: 'heavy' },
-	{ title: 'Azul', why: 'Placeholder — pretty, quick, mean.', weight: 'light' },
-	{ title: 'Root', why: 'Placeholder — asymmetry as a lifestyle.', weight: 'medium' }
+	{
+		title: 'Arkham Horror: The Card Game',
+		why: 'A campaign that remembers what you did to it. Your deck carries the scars from one scenario to the next.',
+		weight: 'heavy'
+	},
+	{
+		title: 'Root',
+		why: 'Asymmetry as a lifestyle — four factions that barely share a rulebook, let alone a strategy.',
+		weight: 'medium'
+	},
+	{
+		title: 'Exploding Kittens',
+		why: 'Russian roulette for people who like cats. Teaches a table the shape of a push-your-luck game in about four minutes.',
+		weight: 'light'
+	}
 ];
 
 export const wingChun = {

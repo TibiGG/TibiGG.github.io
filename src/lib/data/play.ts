@@ -13,6 +13,16 @@ export const games = [
 		weight: 'medium'
 	},
 	{
+		title: 'Blood on the Clocktower',
+		why: 'Social deduction where the dead keep talking. Everyone plays to the end, and the Storyteller bends the truth for a living.',
+		weight: 'medium'
+	},
+	{
+		title: 'Unstable Unicorns',
+		why: 'Build a herd, ruin someone else’s. Cheerful art doing a poor job of hiding how mean the table gets.',
+		weight: 'light'
+	},
+	{
 		title: 'Exploding Kittens',
 		why: 'Russian roulette for people who like cats. Teaches a table the shape of a push-your-luck game in about four minutes.',
 		weight: 'light'

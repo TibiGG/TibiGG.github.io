@@ -18,6 +18,7 @@
 	const channels = [
 		{ label: 'LinkedIn', url: profile.links.linkedin, note: 'Where the write-ups live' },
 		{ label: 'GitHub', url: profile.links.github, note: 'Code, mostly half-finished' },
+		{ label: 'GitHub (older)', url: profile.links.githubOld, note: 'Undergrad-era projects' },
 		...(profile.links.scholar
 			? [{ label: 'Google Scholar', url: profile.links.scholar, note: 'Papers and citations' }]
 			: [])

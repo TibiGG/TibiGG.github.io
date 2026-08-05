@@ -9,9 +9,10 @@ export const profile = {
 		machines to repair them. Off the clock I'm rolling dice around a table or
 		drilling chi sau in a Wing Chun kwoon.`,
 	location: 'London, UK',
-	email: 'tg4018@ic.ac.uk',
+	email: 'tibi.geo@ic.ac.uk',
 	links: {
-		github: 'https://github.com/TibiGG',
+		github: 'https://github.com/TibiIC',
+		githubOld: 'https://github.com/TibiGG',
 		linkedin: 'https://www.linkedin.com/in/tibigeo',
 		scholar: '' // add your Google Scholar URL when you have one
 	}
@@ -25,5 +26,7 @@ export const diceFacts = [
 	'Wing Chun runs on the centerline theory: the shortest path is a straight one.',
 	'Built a Raspberry Pi smart mirror in C, because a normal mirror was insufficient.',
 	'Fine-tuned GPT-3 to write animated children’s stories. It won "Most Stylish Hack".',
-	'I speak Romanian, English, and enough French to order badly in a restaurant.'
+	'I speak Romanian and English.',
+	'Shielded a reinforcement learning agent playing Atari Seaquest with a formal specification that repairs itself mid-episode.',
+	'Built an AI clinician called ReBind at a "Building an AI Scientist" hackathon in 2026.'
 ];

@@ -14,6 +14,18 @@ export type Hackathon = {
 // the card grows a "Read the write-up" button automatically.
 export const hackathons: Hackathon[] = [
 	{
+		event: 'Building an AI Scientist Hackathon',
+		prize: 'Winner',
+		date: '2026-07-03',
+		project: 'ReBind: The Personal AI Clinician',
+		tagline: 'An agentic clinician that reasons over a patient’s own history.',
+		stack: ['Agentic infrastructure', 'React', 'Python'],
+		links: [
+			{ label: 'Event', url: 'https://luma.com/yw0c3upd' },
+			{ label: 'Project', url: 'https://lnkd.in/p/e-Bt_Kef' }
+		]
+	},
+	{
 		event: 'OxfordHack 2022',
 		prize: 'Most Stylish Hack',
 		date: '2022-02-22',
@@ -67,7 +79,7 @@ export const hackathons: Hackathon[] = [
 	},
 	{
 		event: 'R. U. Hacking? 2019',
-		prize: 'BMI Challenge',
+		prize: 'UN SDG 7 & 11 Challenge',
 		date: '2019-02-16',
 		project: 'Enercom',
 		tagline: 'Communities of energy-efficient houses that generate enough power to sustain themselves.',
@@ -82,6 +94,42 @@ export const hackathons: Hackathon[] = [
 		project: 'Mega Sumo Bot',
 		tagline: 'A 3kg Lego sumo robot, scaled up from a design built for a robot a third its weight.',
 		challenge: 'Build an up-to-3kg Lego sumo robot.',
+		stack: ['RobotC', 'Mechanical design'],
+		links: [{ label: 'Robotex', url: 'https://robotex.international/' }]
+	},
+	{
+		event: 'First Tech Challenge Romania 2018',
+		prize: 'Competitor',
+		date: '2018-01-01',
+		project: 'FTC Robot',
+		tagline: 'The national round of the FIRST Tech Challenge.',
+		stack: ['Java', 'Mechanical design'],
+		links: [{ label: 'FTC Romania', url: 'https://natieprineducatie.ro/' }]
+	},
+	{
+		event: 'Infomatrix 2017',
+		prize: 'First Prize — Lego Sumo',
+		date: '2017-01-01',
+		project: 'Lego Sumo Bot',
+		tagline: 'Two robots, one ring, one of them still standing.',
+		stack: ['RobotC', 'Mechanical design'],
+		links: [{ label: 'Infomatrix', url: 'http://infomatrix.ro/' }]
+	},
+	{
+		event: 'Infomatrix 2016',
+		prize: 'First Prize — Lego Sumo',
+		date: '2016-06-01',
+		project: 'Lego Sumo Bot',
+		tagline: 'The same ring, a year earlier.',
+		stack: ['RobotC', 'Mechanical design'],
+		links: [{ label: 'Infomatrix', url: 'http://infomatrix.ro/' }]
+	},
+	{
+		event: 'Robotex International 2016',
+		prize: 'Third Prize — Lego Sumo',
+		date: '2016-01-01',
+		project: 'Lego Sumo Bot',
+		tagline: 'First trip to Tallinn, first podium.',
 		stack: ['RobotC', 'Mechanical design'],
 		links: [{ label: 'Robotex', url: 'https://robotex.international/' }]
 	}

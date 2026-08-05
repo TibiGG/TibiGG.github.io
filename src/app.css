@@ -1,0 +1,209 @@
+/* ---------------------------------------------------------------
+   Design tokens.
+   The vibe: a warm tabletop. Paper-cream ground, ink text, and three
+   accents borrowed from dice, felt and a Wing Chun sash.
+   --------------------------------------------------------------- */
+
+:root {
+	--paper: #fbf4e6;
+	--paper-2: #f3e9d6;
+	--card: #fffdf7;
+	--ink: #1e1b16;
+	--ink-soft: #5d564a;
+	--rule: #e0d4bd;
+	--grid: rgba(30, 27, 22, 0.055);
+
+	--red: #e2542c; /* dice pip / sash */
+	--teal: #12a5a0; /* felt */
+	--gold: #f0b429; /* meeple */
+
+	--radius: 14px;
+	--shadow: 0 1px 0 var(--rule), 0 10px 24px -18px rgba(30, 27, 22, 0.5);
+
+	--display: 'Space Grotesk', ui-rounded, 'Segoe UI', system-ui, sans-serif;
+	--body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+	--mono: ui-monospace, 'SF Mono', Menlo, monospace;
+
+	--wrap: 68rem;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--paper: #16150f;
+		--paper-2: #1e1c14;
+		--card: #211f17;
+		--ink: #f6eeda;
+		--ink-soft: #a89e88;
+		--rule: #35311f;
+		--grid: rgba(246, 238, 218, 0.045);
+		--red: #ff7a52;
+		--teal: #2fd0c6;
+		--gold: #ffc94d;
+		--shadow: 0 1px 0 var(--rule), 0 10px 24px -18px rgba(0, 0, 0, 0.9);
+	}
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	background-color: var(--paper);
+	/* Faint grid, like a game board under everything. Kept low-contrast so it
+	   reads as texture at any page length — no viewport-height vignette, which
+	   would band visibly partway down a long page. */
+	background-image:
+		linear-gradient(var(--grid) 1px, transparent 1px),
+		linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+	background-size: 48px 48px;
+	background-position: -1px -1px;
+	color: var(--ink);
+	font-family: var(--body);
+	font-size: 17px;
+	line-height: 1.65;
+	-webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+	font-family: var(--display);
+	font-weight: 700;
+	line-height: 1.1;
+	letter-spacing: -0.02em;
+	margin: 0;
+}
+
+a {
+	color: inherit;
+	text-decoration-color: var(--red);
+	text-underline-offset: 3px;
+	text-decoration-thickness: 2px;
+}
+
+a:hover {
+	color: var(--red);
+}
+
+.wrap {
+	width: min(100% - 2.5rem, var(--wrap));
+	margin-inline: auto;
+	position: relative;
+	z-index: 1;
+}
+
+/* The centerline: Wing Chun's shortest-path-is-a-straight-line, used as the
+   marker for every section heading on the site. */
+.centerline {
+	display: flex;
+	align-items: center;
+	gap: 0.85rem;
+	margin-bottom: 1.75rem;
+}
+
+.centerline::before {
+	content: '';
+	width: 4px;
+	height: 1.9em;
+	background: linear-gradient(var(--red), var(--gold));
+	border-radius: 2px;
+	flex: none;
+}
+
+.eyebrow {
+	font-family: var(--mono);
+	font-size: 0.75rem;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--ink-soft);
+}
+
+.card {
+	background: var(--card);
+	border: 1px solid var(--rule);
+	border-radius: var(--radius);
+	box-shadow: var(--shadow);
+	padding: 1.5rem;
+	transition:
+		transform 0.18s ease,
+		box-shadow 0.18s ease;
+}
+
+/* Cards sit slightly askew, like pieces left on a table, and straighten when
+   you reach for them. */
+.card.tilt:nth-child(odd) {
+	transform: rotate(-0.5deg);
+}
+.card.tilt:nth-child(even) {
+	transform: rotate(0.55deg);
+}
+.card.tilt:hover {
+	transform: rotate(0deg) translateY(-4px);
+	box-shadow: 0 1px 0 var(--rule), 0 18px 30px -20px rgba(30, 27, 22, 0.55);
+}
+
+.tag {
+	display: inline-block;
+	font-family: var(--mono);
+	font-size: 0.72rem;
+	padding: 0.15rem 0.55rem;
+	border-radius: 999px;
+	border: 1px solid var(--rule);
+	background: var(--paper-2);
+	color: var(--ink-soft);
+}
+
+.btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-family: var(--display);
+	font-weight: 600;
+	font-size: 0.92rem;
+	padding: 0.55rem 1.05rem;
+	border-radius: 999px;
+	border: 2px solid var(--ink);
+	background: var(--gold);
+	color: #1e1b16;
+	text-decoration: none;
+	cursor: pointer;
+	transition:
+		transform 0.12s ease,
+		box-shadow 0.12s ease;
+	box-shadow: 3px 3px 0 var(--ink);
+}
+
+.btn:hover {
+	color: #1e1b16;
+	transform: translate(-1px, -1px);
+	box-shadow: 4px 4px 0 var(--ink);
+}
+
+.btn:active {
+	transform: translate(2px, 2px);
+	box-shadow: 1px 1px 0 var(--ink);
+}
+
+.btn.ghost {
+	background: transparent;
+	color: var(--ink);
+	box-shadow: 3px 3px 0 var(--rule);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}

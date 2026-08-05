@@ -13,6 +13,11 @@ export const games = [
 		weight: 'medium'
 	},
 	{
+		title: 'My Father’s Work',
+		why: 'A Kickstarter pledge that turned into a legacy game about inheriting a mad scientist’s laboratory — and his unfinished experiments.',
+		weight: 'heavy'
+	},
+	{
 		title: 'Blood on the Clocktower',
 		why: 'Social deduction where the dead keep talking. Everyone plays to the end, and the Storyteller bends the truth for a living.',
 		weight: 'medium'

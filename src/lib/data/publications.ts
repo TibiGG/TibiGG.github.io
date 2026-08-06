@@ -34,15 +34,18 @@ export const publications: Publication[] = [
 			'Francesco Belardinelli',
 			'Sebastian Uchitel'
 		],
-		venue: 'arXiv preprint',
-		year: 2025,
-		status: 'preprint',
+		venue: 'NeSy 2026',
+		year: 2026,
+		status: 'published',
 		abstract: `Shielding keeps a reinforcement learning agent inside a formal safety
 			specification, but the usual shield is static: when the environment stops behaving
 			the way the specification assumed, the agent fails quietly. This work detects that
 			breakdown and repairs the GR(1) specification at runtime with inductive logic
 			programming, weakening goals minimally and only when necessary.`,
-		links: [{ label: 'arXiv', url: 'https://arxiv.org/abs/2511.02605' }]
+		links: [
+			{ label: 'arXiv', url: 'https://arxiv.org/abs/2511.02605' },
+			{ label: 'NeSy', url: 'https://nesy-ai.org/conferences/nesy-2026' }
+		]
 	},
 	{
 		title:

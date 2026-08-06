@@ -1,24 +1,22 @@
 <script lang="ts">
-	import { hackathons } from '$lib/data/hackathons';
+	import { hackathons, wins } from '$lib/data/hackathons';
 	import { profile } from '$lib/data/profile';
+	import Seo from '$lib/Seo.svelte';
 
 	const sorted = [...hackathons].sort((a, b) => b.date.localeCompare(a.date));
 
 	const year = (iso: string) => iso.slice(0, 4);
 </script>
 
-<svelte:head>
-	<title>Hackathons — {profile.name}</title>
-	<meta
-		name="description"
-		content="{hackathons.length} hackathon and robotics competition wins, with write-ups."
-	/>
-</svelte:head>
+<Seo
+	title="Hackathons · {profile.name}"
+	description="{wins.length} hackathon and robotics competition wins by {profile.name}, with write-ups."
+/>
 
 <h1 class="centerline">Hackathons &amp; competitions</h1>
 <p class="lede">
-	{sorted.length} weekends that ended in a trophy. Some of them have write-ups; the rest exist mostly
-	as blurry photos and a vague memory of the 4am pivot.
+	{wins.length} weekends that ended in a trophy, and a few that ended in something better. Some have
+	write-ups; the rest exist mostly as blurry photos and a vague memory of the 4am pivot.
 </p>
 
 <div class="grid">
@@ -28,7 +26,9 @@
 				<span class="year">{year(h.date)}</span>
 				<h2>{h.project}</h2>
 				<p class="event">{h.event}</p>
-				<p class="prize">🏆 {h.prize}</p>
+				{#if h.prize}
+					<p class="prize">🏆 {h.prize}</p>
+				{/if}
 			</header>
 
 			<p class="tagline">{h.tagline}</p>
@@ -98,6 +98,7 @@
 		font-size: 0.88rem;
 		color: var(--ink-soft);
 	}
+
 
 	.tagline {
 		margin: 0 0 0.75rem;

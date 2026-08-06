@@ -1,7 +1,12 @@
 // The games I actually play. The `why` lines are mine to rewrite whenever the
-// mood changes — nothing else on the page depends on their wording.
+// mood changes; nothing else on the page depends on their wording.
 
 export const games = [
+	{
+		title: 'Dungeons & Dragons',
+		why: 'The one where the rulebook is a starting position rather than a constraint. A d20 and a table willing to argue with it will carry a story further than any board will.',
+		weight: 'heavy'
+	},
 	{
 		title: 'Arkham Horror: The Card Game',
 		why: 'A campaign that remembers what you did to it. Your deck carries the scars from one scenario to the next.',
@@ -9,12 +14,12 @@ export const games = [
 	},
 	{
 		title: 'Root',
-		why: 'Asymmetry as a lifestyle — four factions that barely share a rulebook, let alone a strategy.',
+		why: 'Asymmetry as a lifestyle: four factions that barely share a rulebook, let alone a strategy.',
 		weight: 'medium'
 	},
 	{
 		title: 'My Father’s Work',
-		why: 'A Kickstarter pledge that turned into a legacy game about inheriting a mad scientist’s laboratory — and his unfinished experiments.',
+		why: 'A Kickstarter pledge that turned into a legacy game about inheriting a mad scientist’s laboratory, and his unfinished experiments.',
 		weight: 'heavy'
 	},
 	{
@@ -46,7 +51,7 @@ export const wingChun = {
 		},
 		{
 			name: 'Chi Sau',
-			gloss: 'Sticking hands — train sensitivity until your arms answer before you decide.'
+			gloss: 'Sticking hands: train sensitivity until your arms answer before you decide.'
 		},
 		{
 			name: 'Economy of motion',

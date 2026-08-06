@@ -4,8 +4,25 @@ export type Publication = {
 	venue: string;
 	year: number;
 	status: 'published' | 'in review' | 'preprint';
+	// Decides the BibTeX entry type on the research page: conference papers are
+	// @inproceedings, journal submissions @article, anything else @misc.
+	kind?: 'inproceedings' | 'article' | 'misc';
+	// Cite key. Left off, one is derived as <surname><year><firstword>.
+	citeKey?: string;
 	links?: { label: string; url: string }[];
 	abstract?: string;
+};
+
+// The PhD, described for people who won't read the papers.
+export const thesis = {
+	title: 'Inductive Adaptation of GR(1) Specifications to Environment Changes',
+	institution: 'Imperial College London',
+	programme: 'PhD, Safe and Trusted AI',
+	started: 2022,
+	supervisors: ['Dalal Alrajeh', 'Sebastian Uchitel'],
+	// Your words, in your own time. Left empty, the research page shows the title
+	// and supervisors and skips the paragraph entirely.
+	summary: ''
 };
 
 // Author lists and titles for the two arXiv entries are taken from the arXiv
@@ -17,8 +34,9 @@ export const publications: Publication[] = [
 		venue: 'Journal paper',
 		year: 2026,
 		status: 'in review',
+		kind: 'article',
 		abstract: `Assume-guarantee specifications for reactive systems lean on their environment
-			assumptions being correct — when the assumptions fail, the guarantees can fail with
+			assumptions being correct. When the assumptions fail, the guarantees can fail with
 			them. This work learns the environment's real behaviour with logic-based machine
 			learning, then adapts the guarantees to restore correctness via oracle-guided
 			inductive synthesis.`,
@@ -37,6 +55,7 @@ export const publications: Publication[] = [
 		venue: 'NeSy 2026',
 		year: 2026,
 		status: 'published',
+		kind: 'inproceedings',
 		abstract: `Shielding keeps a reinforcement learning agent inside a formal safety
 			specification, but the usual shield is static: when the environment stops behaving
 			the way the specification assumed, the agent fails quietly. This work detects that
@@ -61,6 +80,7 @@ export const publications: Publication[] = [
 		venue: 'IROS 2022',
 		year: 2022,
 		status: 'published',
+		kind: 'inproceedings',
 		abstract: `Multi-agent driving policies trained in simulation rarely survive contact with
 			real hardware. Training with MAPPO under domain randomisation and deploying onto the
 			physical Duckietown testbed beat the rule-based baseline by 1.85x on average.`,

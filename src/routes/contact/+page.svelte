@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { profile } from '$lib/data/profile';
+	import { person } from '$lib/schema';
+	import Seo from '$lib/Seo.svelte';
 
-	// Static site, so no form backend — mailto keeps it honest and dependency-free.
+	// Static site, so no form backend. Mailto keeps it honest and dependency-free.
 	let copied = $state(false);
 
 	async function copyEmail() {
@@ -10,29 +12,30 @@
 			copied = true;
 			setTimeout(() => (copied = false), 1800);
 		} catch {
-			// Clipboard blocked (insecure context, permissions) — the mailto link still works.
+			// Clipboard blocked (insecure context, permissions), so the mailto link still works.
 			copied = false;
 		}
 	}
 
 	const channels = [
-		{ label: 'LinkedIn', url: profile.links.linkedin, note: 'Where the write-ups live' },
-		{ label: 'GitHub', url: profile.links.github, note: 'Code, mostly half-finished' },
-		{ label: 'GitHub (older)', url: profile.links.githubOld, note: 'Undergrad-era projects' },
+		{ label: 'LinkedIn', url: profile.links.linkedin, note: 'Where I think out loud' },
+		{ label: 'GitHub', url: profile.links.github, note: 'Code, always work-in-progress' },
+		{ label: 'GitHub (older)', url: profile.links.githubOld, note: 'Side-projects from the highschool-era' },
 		...(profile.links.scholar
 			? [{ label: 'Google Scholar', url: profile.links.scholar, note: 'Papers and citations' }]
 			: [])
 	];
 </script>
 
-<svelte:head>
-	<title>Contact — {profile.name}</title>
-	<meta name="description" content="Get in touch with {profile.name}." />
-</svelte:head>
+<Seo
+	title="Contact · {profile.name}"
+	description="Get in touch with {profile.name}: email, LinkedIn and GitHub."
+	schema={person}
+/>
 
 <h1 class="centerline">Say hello</h1>
 <p class="lede">
-	Research collaborations, hackathon teams, or a spare seat at a four-player game — all welcome.
+	Research collaborations, hackathon teams, or a spare seat at a four-player game: all welcome.
 </p>
 
 <div class="card email-card">

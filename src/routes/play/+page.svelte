@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { games, wingChun } from '$lib/data/play';
 	import { profile } from '$lib/data/profile';
+	import Seo from '$lib/Seo.svelte';
 </script>
 
-<svelte:head>
-	<title>Play — {profile.name}</title>
-	<meta name="description" content="Board games and Wing Chun kung fu." />
-</svelte:head>
+<Seo
+	title="Play · {profile.name}"
+	description="The board games on {profile.short}'s table and the Wing Chun principles that keep turning up in the research."
+/>
 
 <h1 class="centerline">Play</h1>
 <p class="lede">
@@ -87,7 +88,7 @@
 		color: var(--teal);
 	}
 	.weight.medium {
-		background: color-mix(in srgb, var(--gold) 28%, transparent);
+		background: color-mix(in srgb, var(--ink-soft) 18%, transparent);
 		color: var(--ink);
 	}
 	.weight.heavy {

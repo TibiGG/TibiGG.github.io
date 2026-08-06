@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#161412" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b81d28"/>
+      <stop offset="1" stop-color="#7a1420"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#f6f2e9"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- centerline marker, same device as the section headings on the site -->
+  <rect x="90" y="196" width="10" height="118" rx="5" fill="url(#bar)"/>
+
+  <text x="126" y="180" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="26" letter-spacing="4" fill="#6e6862">LONDON, UK</text>
+  <text x="126" y="272" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="bold" font-size="76" fill="#161412">Tiberiu-Andrei</text>
+  <text x="126" y="352" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="bold" font-size="76" fill="#161412">Georgescu</text>
+
+  <text x="126" y="422" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="600" font-size="30" fill="#0f7b76">PhD researcher · serial hackathon winner</text>
+
+  <text x="126" y="486" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="27" fill="#6e6862">Repairing formal specifications when the environment stops</text>
+  <text x="126" y="524" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="27" fill="#6e6862">behaving the way they assumed.</text>
+
+  <!-- the d20, same mark as the site logo, tilted slightly -->
+  <g transform="translate(890 222) rotate(-8) scale(2.9)">
+    <g fill="none" stroke="#161412" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M32 3 L57 17.5 L57 46.5 L32 61 L7 46.5 L7 17.5 Z" fill="#b81d28"/>
+      <path d="M32 17 L48.5 45 L15.5 45 Z"/>
+      <path d="M32 17 L7 17.5 M32 17 L57 17.5 M15.5 45 L7 46.5 M48.5 45 L57 46.5 M15.5 45 L32 61 M48.5 45 L32 61"/>
+    </g>
+  </g>
+
+  <text x="890" y="500" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="bold" font-size="26" fill="#161412">tibigg.github.io</text>
+</svg>

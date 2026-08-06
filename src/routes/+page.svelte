@@ -1,10 +1,15 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import { profile, diceFacts } from '$lib/data/profile';
+	import { profile } from '$lib/data/profile';
 	import { publications } from '$lib/data/publications';
-	import { hackathons, writing } from '$lib/data/hackathons';
+	import { wins, writing } from '$lib/data/hackathons';
 	import { roles, education, skills } from '$lib/data/experience';
-	import Die from '$lib/Die.svelte';
+	import { posts } from '$lib/posts';
+	import { person } from '$lib/schema';
+	import Seo from '$lib/Seo.svelte';
+
+	// Own posts first, then LinkedIn pieces fill the strip up to five rows.
+	const recentPosts = posts.slice(0, 3);
 
 	const MONTHS = [
 		'Jan',
@@ -28,31 +33,17 @@
 		return `${MONTHS[Number(m) - 1]} ${y}`;
 	}
 
-	let fact = $state('Roll the die for something you didn’t ask to know.');
-	let rolled = $state(false);
-
-	function newFact() {
-		// Don't land on the fact we're already showing.
-		let next = fact;
-		while (next === fact && diceFacts.length > 1) {
-			next = diceFacts[Math.floor(Math.random() * diceFacts.length)];
-		}
-		fact = next;
-		rolled = true;
-	}
-
-	const wins = hackathons.length;
-	// Sort rather than trusting the data file's order.
-	const latest = [...hackathons].sort((a, b) => b.date.localeCompare(a.date))[0];
+	const winCount = wins.length;
+	// Sort rather than trusting the data file's order. Entries that didn't place
+	// aren't in `wins`, so this is always a real one.
+	const latest = [...wins].sort((a, b) => b.date.localeCompare(a.date))[0];
 </script>
 
-<svelte:head>
-	<title>{profile.name} — research, hackathons, dice</title>
-	<meta
-		name="description"
-		content="Portfolio of {profile.name}: PhD research on specification repair, {wins} hackathon and competition wins, board games and Wing Chun."
-	/>
-</svelte:head>
+<Seo
+	title="{profile.name}: research, hackathons, dice"
+	description="Portfolio of {profile.name}: PhD research on specification repair, {winCount} hackathon and competition wins, board games and Wing Chun."
+	schema={person}
+/>
 
 <section class="hero">
 	<div>
@@ -67,13 +58,9 @@
 		<div class="cta">
 			<a class="btn" href="{base}/research">Read the research</a>
 			<a class="btn ghost" href="{base}/hackathons">See the wins</a>
+			<a class="btn ghost" href="{base}/cv">CV</a>
 		</div>
 	</div>
-
-	<aside class="dicebox">
-		<Die onroll={newFact} />
-		<p class="fact" class:rolled>{fact}</p>
-	</aside>
 </section>
 
 <section class="stats">
@@ -82,7 +69,7 @@
 		<span>papers</span>
 	</div>
 	<div class="stat card">
-		<strong>{wins}</strong>
+		<strong>{winCount}</strong>
 		<span>hackathons &amp; competitions won</span>
 	</div>
 	<div class="stat card">
@@ -94,13 +81,13 @@
 <section>
 	<h2 class="centerline">Most recent win</h2>
 	<article class="card feature">
-		<p class="eyebrow">{latest.event} — {latest.prize}</p>
+		<p class="eyebrow">{latest.event}{#if latest.prize} · {latest.prize}{/if}</p>
 		<h3>{latest.project}</h3>
 		<p>{latest.tagline}</p>
 		<div class="tags">
 			{#each latest.stack as s}<span class="tag">{s}</span>{/each}
 		</div>
-		<a class="more" href="{base}/hackathons">All {wins} of them →</a>
+		<a class="more" href="{base}/hackathons">All {winCount} of them →</a>
 	</article>
 </section>
 
@@ -162,21 +149,24 @@
 <section>
 	<h2 class="centerline">Things I wrote</h2>
 	<ul class="writing">
-		{#each writing as w}
+		{#each recentPosts as p}
+			<li>
+				<a href="{base}/writing/{p.slug}/">{p.title}</a>
+				<span class="tag">Post</span>
+			</li>
+		{/each}
+		{#each writing.slice(0, 5 - recentPosts.length) as w}
 			<li>
 				<a href={w.url} target="_blank" rel="noopener noreferrer">{w.title}</a>
 				<span class="tag">LinkedIn</span>
 			</li>
 		{/each}
 	</ul>
+	<a class="more" href="{base}/writing/">Everything I've written →</a>
 </section>
 
 <style>
 	.hero {
-		display: grid;
-		grid-template-columns: 1fr auto;
-		gap: 3rem;
-		align-items: center;
 		margin-bottom: 4rem;
 	}
 
@@ -209,26 +199,6 @@
 		display: flex;
 		gap: 0.75rem;
 		flex-wrap: wrap;
-	}
-
-	.dicebox {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 1rem;
-		max-width: 15rem;
-		text-align: center;
-	}
-
-	.fact {
-		font-size: 0.9rem;
-		color: var(--ink-soft);
-		margin: 0;
-		min-height: 5rem;
-	}
-
-	.fact.rolled {
-		color: var(--ink);
 	}
 
 	.stats {
@@ -278,6 +248,8 @@
 	}
 
 	.more {
+		display: inline-block;
+		margin-top: 1.1rem;
 		font-family: var(--display);
 		font-weight: 600;
 		font-size: 0.92rem;
@@ -393,18 +365,6 @@
 	}
 
 	@media (max-width: 720px) {
-		.hero {
-			grid-template-columns: 1fr;
-			gap: 2rem;
-		}
-		.dicebox {
-			max-width: none;
-			flex-direction: row;
-			text-align: left;
-		}
-		.fact {
-			min-height: 0;
-		}
 		.timeline li {
 			grid-template-columns: 1fr;
 			gap: 0.35rem;

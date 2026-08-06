@@ -1,24 +1,50 @@
 /* ---------------------------------------------------------------
    Design tokens.
-   The vibe: a warm tabletop. Paper-cream ground, ink text, and three
-   accents borrowed from dice, felt and a Wing Chun sash.
+   The vibe: black and red. A warm bone ground with the yellow pulled most of
+   the way out, near-black ink, and a deep maroon as the red's own second
+   tone. Green survives as the one cool accent, doing metadata: venues,
+   supervisors, section labels.
+
+   Two alternatives, each a four-line swap. Neutral bone is the same
+   brightness with the warmth taken out; ash is cooler and heavier still.
+
+     neutral bone                      ash
+     --paper:   #f7f5f1                --paper:   #eceae7
+     --paper-2: #eeebe5                --paper-2: #e3e0db
+     --card:    #fffdfa                --card:    #f8f6f3
+     --rule:    #e2ddd5                --rule:    #d6d2cc
+
+   For reference, the cream this replaced was #fbf4e6, which is roughly twice
+   as saturated as the current ground and was reading as orange.
    --------------------------------------------------------------- */
 
 :root {
-	--paper: #fbf4e6;
-	--paper-2: #f3e9d6;
-	--card: #fffdf7;
-	--ink: #1e1b16;
-	--ink-soft: #5d564a;
-	--rule: #e0d4bd;
-	--grid: rgba(30, 27, 22, 0.055);
+	/* Every token is a light/dark pair, so the palette lives in exactly one place.
+	   `color-scheme` below decides which half of each pair applies, which means
+	   the theme toggle only has to flip one property. */
+	color-scheme: light dark;
 
-	--red: #e2542c; /* dice pip / sash */
-	--teal: #12a5a0; /* felt */
-	--gold: #f0b429; /* meeple */
+	--paper: light-dark(#f6f2e9, #0e0d0c);
+	--paper-2: light-dark(#ede7da, #171614);
+	--card: light-dark(#fffdf8, #1b1917);
+	--ink: light-dark(#161412, #f2efea);
+	--ink-soft: light-dark(#6b645a, #a39c94);
+	--rule: light-dark(#e0d9c9, #2e2a26);
+	--grid: light-dark(rgba(22, 20, 18, 0.05), rgba(242, 239, 234, 0.04));
+
+	--red: light-dark(#b81d28, #ff4d5a); /* the accent, and the only loud thing here */
+	--maroon: light-dark(#7a1420, #c2303c); /* the red's darker tone */
+	--teal: light-dark(#0f7b76, #2fd0c6); /* metadata: venues, labels, supervisors */
+	/* Text sitting on a red fill. The dark theme's red is bright enough that it
+	   wants ink on top, not white. */
+	--on-red: light-dark(#ffffff, #14100f);
+
+	/* The hard-edged button shadows are always ink-on-paper, never inverted. */
+	--stamp: light-dark(#161412, #000000);
+	--drop: light-dark(rgba(22, 20, 18, 0.45), rgba(0, 0, 0, 0.9));
 
 	--radius: 14px;
-	--shadow: 0 1px 0 var(--rule), 0 10px 24px -18px rgba(30, 27, 22, 0.5);
+	--shadow: 0 1px 0 var(--rule), 0 10px 24px -18px var(--drop);
 
 	--display: 'Space Grotesk', ui-rounded, 'Segoe UI', system-ui, sans-serif;
 	--body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -27,20 +53,14 @@
 	--wrap: 68rem;
 }
 
-@media (prefers-color-scheme: dark) {
-	:root {
-		--paper: #16150f;
-		--paper-2: #1e1c14;
-		--card: #211f17;
-		--ink: #f6eeda;
-		--ink-soft: #a89e88;
-		--rule: #35311f;
-		--grid: rgba(246, 238, 218, 0.045);
-		--red: #ff7a52;
-		--teal: #2fd0c6;
-		--gold: #ffc94d;
-		--shadow: 0 1px 0 var(--rule), 0 10px 24px -18px rgba(0, 0, 0, 0.9);
-	}
+/* An explicit choice from the header toggle wins over the OS preference.
+   The matching attribute is set by the inline script in app.html, before paint. */
+:root[data-theme='light'] {
+	color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+	color-scheme: dark;
 }
 
 *,
@@ -57,7 +77,7 @@ body {
 	margin: 0;
 	background-color: var(--paper);
 	/* Faint grid, like a game board under everything. Kept low-contrast so it
-	   reads as texture at any page length — no viewport-height vignette, which
+	   reads as texture at any page length. A viewport-height vignette
 	   would band visibly partway down a long page. */
 	background-image:
 		linear-gradient(var(--grid) 1px, transparent 1px),
@@ -112,7 +132,7 @@ a:hover {
 	content: '';
 	width: 4px;
 	height: 1.9em;
-	background: linear-gradient(var(--red), var(--gold));
+	background: linear-gradient(var(--red), var(--maroon));
 	border-radius: 2px;
 	flex: none;
 }
@@ -146,7 +166,7 @@ a:hover {
 }
 .card.tilt:hover {
 	transform: rotate(0deg) translateY(-4px);
-	box-shadow: 0 1px 0 var(--rule), 0 18px 30px -20px rgba(30, 27, 22, 0.55);
+	box-shadow: 0 1px 0 var(--rule), 0 18px 30px -20px var(--drop);
 }
 
 .tag {
@@ -170,8 +190,8 @@ a:hover {
 	padding: 0.55rem 1.05rem;
 	border-radius: 999px;
 	border: 2px solid var(--ink);
-	background: var(--gold);
-	color: #1e1b16;
+	background: var(--red);
+	color: var(--on-red);
 	text-decoration: none;
 	cursor: pointer;
 	transition:
@@ -181,7 +201,7 @@ a:hover {
 }
 
 .btn:hover {
-	color: #1e1b16;
+	color: var(--on-red);
 	transform: translate(-1px, -1px);
 	box-shadow: 4px 4px 0 var(--ink);
 }
@@ -195,6 +215,56 @@ a:hover {
 	background: transparent;
 	color: var(--ink);
 	box-shadow: 3px 3px 0 var(--rule);
+}
+
+/* Ghost buttons keep ink text on hover; only the border warms to red. */
+.btn.ghost:hover {
+	color: var(--ink);
+	border-color: var(--red);
+	box-shadow: 4px 4px 0 var(--red);
+}
+
+/* Printing is really only meant for /cv, but every page benefits from losing the
+   navigation, the shadows and the paper texture on the way to a printer. */
+@media print {
+	:root {
+		color-scheme: light;
+	}
+
+	body {
+		background: #fff;
+		background-image: none;
+		font-size: 10.5pt;
+		line-height: 1.45;
+	}
+
+	header,
+	footer {
+		display: none !important;
+	}
+
+	main {
+		padding: 0 !important;
+		min-height: 0 !important;
+	}
+
+	.wrap {
+		width: 100%;
+	}
+
+	.card {
+		box-shadow: none;
+		transform: none !important;
+		break-inside: avoid;
+	}
+
+	a {
+		text-decoration: none;
+	}
+
+	@page {
+		margin: 14mm;
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {

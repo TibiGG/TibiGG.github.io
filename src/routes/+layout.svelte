@@ -4,12 +4,15 @@
 	import { page } from '$app/state';
 	import { base } from '$app/paths';
 	import { profile } from '$lib/data/profile';
+	import ThemeToggle from '$lib/ThemeToggle.svelte';
+	import Logo from '$lib/Logo.svelte';
 
 	let { children } = $props();
 
 	const nav = [
 		{ href: '/', label: 'Home' },
 		{ href: '/research', label: 'Research' },
+		{ href: '/writing', label: 'Writing' },
 		{ href: '/hackathons', label: 'Hackathons' },
 		{ href: '/play', label: 'Play' },
 		{ href: '/contact', label: 'Contact' }
@@ -34,7 +37,7 @@
 <header>
 	<div class="wrap bar">
 		<a class="brand" href="{base}/">
-			<span class="pip" aria-hidden="true"></span>
+			<Logo />
 			{profile.short}
 		</a>
 		<nav aria-label="Main">
@@ -48,6 +51,7 @@
 				</a>
 			{/each}
 		</nav>
+		<ThemeToggle />
 	</div>
 </header>
 
@@ -60,6 +64,8 @@
 		<span>© {new Date().getFullYear()} {profile.name}</span>
 		<span class="dot">·</span>
 		<span>Built with SvelteKit, deployed on GitHub Pages</span>
+		<span class="dot">·</span>
+		<a href="{base}/cv">CV</a>
 		<span class="dot">·</span>
 		<a href="{base}/contact">Say hello</a>
 	</div>
@@ -78,16 +84,15 @@
 	.bar {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
+		gap: 0.75rem;
 		padding: 0.85rem 0;
-		flex-wrap: wrap;
 	}
 
 	.brand {
 		display: inline-flex;
 		align-items: center;
 		gap: 0.6rem;
+		margin-right: auto;
 		font-family: var(--display);
 		font-weight: 700;
 		font-size: 1.2rem;
@@ -95,35 +100,13 @@
 		letter-spacing: -0.02em;
 	}
 
-	/* A single die pip as the logo. */
-	.pip {
-		width: 1.55rem;
-		height: 1.55rem;
-		border-radius: 6px;
-		border: 2px solid var(--ink);
-		background: var(--red);
-		position: relative;
-		box-shadow: 2px 2px 0 var(--ink);
-	}
-
-	.pip::after {
-		content: '';
-		position: absolute;
-		inset: 0;
-		margin: auto;
-		width: 5px;
-		height: 5px;
-		border-radius: 50%;
-		background: var(--paper);
-	}
-
 	nav {
 		display: flex;
 		gap: 0.35rem;
-		flex-wrap: wrap;
 	}
 
 	nav a {
+		white-space: nowrap;
 		font-family: var(--display);
 		font-weight: 600;
 		font-size: 0.94rem;
@@ -142,6 +125,28 @@
 		color: var(--ink);
 		background: var(--paper-2);
 		box-shadow: inset 0 0 0 1px var(--rule);
+	}
+
+	/* Below the fold of a phone screen the six links won't fit beside the brand,
+	   so they drop to their own row and scroll sideways rather than wrapping into
+	   a two-line block that shoves the content down. */
+	@media (max-width: 720px) {
+		.bar {
+			flex-wrap: wrap;
+			padding-bottom: 0.4rem;
+		}
+
+		nav {
+			order: 3;
+			flex-basis: 100%;
+			overflow-x: auto;
+			scrollbar-width: none;
+			padding-bottom: 0.45rem;
+		}
+
+		nav::-webkit-scrollbar {
+			display: none;
+		}
 	}
 
 	main {

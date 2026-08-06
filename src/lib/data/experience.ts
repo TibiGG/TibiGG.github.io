@@ -58,12 +58,12 @@ export const education: Study[] = [
 		inProgress: true
 	},
 	{
-		degree: 'MEng Computing — First-Class Honours',
+		degree: 'MEng Computing, First-Class Honours',
 		org: 'Imperial College London',
 		start: '2018-10',
 		end: '2022-07',
 		thesis:
-			'Towards Rebound-Focused Reinforcement Learning — Solving Deadlocks in Traffic Intersections'
+			'Towards Rebound-Focused Reinforcement Learning: Solving Deadlocks in Traffic Intersections'
 	}
 ];
 

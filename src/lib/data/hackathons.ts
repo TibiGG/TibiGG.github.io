@@ -1,6 +1,8 @@
 export type Hackathon = {
 	event: string;
-	prize: string;
+	// Leave it off when nothing was won. The card then says nothing at all,
+	// rather than announcing that you turned up.
+	prize?: string;
 	date: string; // ISO, used for sorting
 	project: string;
 	tagline: string;
@@ -8,17 +10,20 @@ export type Hackathon = {
 	stack: string[];
 	links: { label: string; url: string }[];
 	blogPost?: string; // LinkedIn write-up, surfaced as a big obvious button
+	// Entered but didn't place. Counts are drawn from `wins` below, so an entry
+	// marked this way never gets counted as one.
+	won?: false;
 };
 
-// Seeded from your CV. Add a `blogPost` URL to any of these as you write them up —
-// the card grows a "Read the write-up" button automatically.
+// Seeded from your CV. Add a `blogPost` URL to any of these as you write them up.
+// The card grows a "Read the write-up" button automatically.
 export const hackathons: Hackathon[] = [
 	{
 		event: 'Building an AI Scientist Hackathon',
-		prize: 'Winner',
 		date: '2026-07-03',
 		project: 'ReBind: The Personal AI Clinician',
 		tagline: 'An agentic clinician that reasons over a patient’s own history.',
+		won: false,
 		stack: ['Agentic infrastructure', 'React', 'Python'],
 		links: [
 			{ label: 'Event', url: 'https://luma.com/yw0c3upd' },
@@ -37,7 +42,7 @@ export const hackathons: Hackathon[] = [
 	},
 	{
 		event: 'ICHack 2022',
-		prize: 'Marshall Wace Challenge — Most Entrepreneurial Hack',
+		prize: 'Marshall Wace Challenge: Most Entrepreneurial Hack',
 		date: '2022-02-08',
 		project: 'StartNet',
 		tagline: 'Matching entrepreneurs with investors by pitch and shared interests.',
@@ -47,7 +52,7 @@ export const hackathons: Hackathon[] = [
 	},
 	{
 		event: 'ICHack 2020',
-		prize: 'Thought Machine Challenge — Money for Good',
+		prize: 'Thought Machine Challenge: Money for Good',
 		date: '2020-02-08',
 		project: 'Laughable',
 		tagline: 'Comedy streaming where the audience pays in proportion to how hard they laughed.',
@@ -89,7 +94,7 @@ export const hackathons: Hackathon[] = [
 	},
 	{
 		event: 'Robotex International 2018',
-		prize: 'Second Place — Mega Lego Sumo, Tallinn',
+		prize: 'Second Place, Mega Lego Sumo, Tallinn',
 		date: '2018-11-25',
 		project: 'Mega Sumo Bot',
 		tagline: 'A 3kg Lego sumo robot, scaled up from a design built for a robot a third its weight.',
@@ -99,16 +104,16 @@ export const hackathons: Hackathon[] = [
 	},
 	{
 		event: 'First Tech Challenge Romania 2018',
-		prize: 'Competitor',
 		date: '2018-01-01',
 		project: 'FTC Robot',
 		tagline: 'The national round of the FIRST Tech Challenge.',
+		won: false,
 		stack: ['Java', 'Mechanical design'],
 		links: [{ label: 'FTC Romania', url: 'https://natieprineducatie.ro/' }]
 	},
 	{
 		event: 'Infomatrix 2017',
-		prize: 'First Prize — Lego Sumo',
+		prize: 'First Prize, Lego Sumo',
 		date: '2017-01-01',
 		project: 'Lego Sumo Bot',
 		tagline: 'Two robots, one ring, one of them still standing.',
@@ -117,7 +122,7 @@ export const hackathons: Hackathon[] = [
 	},
 	{
 		event: 'Infomatrix 2016',
-		prize: 'First Prize — Lego Sumo',
+		prize: 'First Prize, Lego Sumo',
 		date: '2016-06-01',
 		project: 'Lego Sumo Bot',
 		tagline: 'The same ring, a year earlier.',
@@ -126,7 +131,7 @@ export const hackathons: Hackathon[] = [
 	},
 	{
 		event: 'Robotex International 2016',
-		prize: 'Third Prize — Lego Sumo',
+		prize: 'Third Prize, Lego Sumo',
 		date: '2016-01-01',
 		project: 'Lego Sumo Bot',
 		tagline: 'First trip to Tallinn, first podium.',
@@ -135,7 +140,11 @@ export const hackathons: Hackathon[] = [
 	}
 ];
 
-// Other LinkedIn write-ups that aren't hackathons — shown on the writing strip.
+// The subset that actually placed. Every count on the site comes from here, so
+// adding an entry that didn't place can't inflate a "wins" number by accident.
+export const wins = hackathons.filter((h) => h.won !== false);
+
+// Other LinkedIn write-ups that aren't hackathons, shown on the writing strip.
 export const writing = [
 	{
 		title: 'ChainHack24: My First Blockchain Hackathon',

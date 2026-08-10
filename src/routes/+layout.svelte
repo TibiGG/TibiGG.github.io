@@ -1,6 +1,5 @@
 <script lang="ts">
 	import '../app.css';
-	import favicon from '$lib/assets/favicon.svg';
 	import { page } from '$app/state';
 	import { base } from '$app/paths';
 	import { profile } from '$lib/data/profile';
@@ -25,7 +24,13 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<!-- Real files under static/, not an imported asset: Vite inlines anything
+	     under 4kB as a data: URI, and Chrome ignores data: URI favicons. That is
+	     why the d20 showed up in dev and the stale Svelte mark did in production.
+	     The .ico also answers the browser's implicit /favicon.ico request. -->
+	<link rel="icon" href="{base}/favicon.ico" sizes="32x32" />
+	<link rel="icon" href="{base}/favicon.svg" type="image/svg+xml" />
+	<link rel="apple-touch-icon" href="{base}/apple-touch-icon.png" />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 	<link

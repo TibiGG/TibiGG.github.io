@@ -15,8 +15,10 @@
 
 <h1 class="centerline">Hackathons &amp; competitions</h1>
 <p class="lede">
-	{wins.length} weekends that earned me and my team a prize, and a few that ended in something better. Most have
-	a story. If they don't yet, I'll remember it, and eventually share it.
+	Ah, hackathons. A weekend where I get to think outside of the box on a problem I never tackled before.
+	I love them, I need them, and I'm good at them too. I've had {wins.length} weekends that earned me and 
+	my teams at least one prize, and a few that ended in something better. Most of them have
+	a written story. If they don't yet, I'll remember it, and eventually share it.
 </p>
 
 <div class="grid">

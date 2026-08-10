@@ -15,8 +15,7 @@
 
 <h1 class="centerline">Writing</h1>
 <p class="lede">
-	Longer thoughts than a commit message deserves. Older pieces live on LinkedIn; newer ones are
-	here.
+	I sometimes like to share my thoughts on things, not necessarily research related. I used to like LinkedIn as a blog, but no one really reads there anymore. I have a personal blog, but my language there is less professional. You should find a (reasonably) curated list of articles below.
 </p>
 
 {#if posts.length}

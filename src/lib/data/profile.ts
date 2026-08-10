@@ -10,9 +10,9 @@ export const profile = {
 		'board game hoarder',
 		'wing chun practitioner'
 	],
-	blurb: `I do research on specifications that don't quite work yet, and how to teach
-		machines to repair them. Off the clock I'm rolling dice around a table or
-		drilling chi sau in a Wing Chun kwoon.`,
+	blurb: `I make autonomous systems adaptive and trustworthy using logic-based machine learning.
+		Otherwise, when I'm not off at a hackathon, I'm overplanning my next board game session, or
+		drilling forms and sparring in my Wing Chun kwoon.`,
 	location: 'London, UK',
 	email: 'tibi.geo@ic.ac.uk',
 	// Absolute origin, used for canonical URLs, link previews and the sitemap.

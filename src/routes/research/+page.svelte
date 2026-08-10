@@ -52,8 +52,8 @@
 
 <h1 class="centerline">Research</h1>
 <p class="lede">
-	I work on formal specifications, specifically what to do when one turns out to be unrealisable.
-	Throwing it away is easy; finding the nearest thing that <em>does</em> work is the interesting part.
+	I use logic-based AI to make control systems <em>adaptive</em>. My tools are
+	logic, inductive learning and formal specifications.
 </p>
 
 <section class="thesis card">

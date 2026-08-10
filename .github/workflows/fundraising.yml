@@ -1,0 +1,56 @@
+name: Refresh fundraising total
+
+# The site is static, so nothing can poll the giving page while it is being
+# viewed. This is the listener instead: it checks four times a day, commits the
+# new total when it moves, and rebuilds the site so the page and the tab title
+# show the current figure.
+
+on:
+  schedule:
+    # 06:00, 12:00, 18:00 and 00:00 UTC.
+    - cron: '0 0,6,12,18 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: fundraising
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      changed: ${{ steps.check.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Fails loudly on a bad scrape rather than committing a blank total.
+      - run: node scripts/fetch-fundraising.mjs
+
+      - id: check
+        run: |
+          if git diff --quiet -- src/lib/data/fundraising.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Total unchanged; nothing to deploy."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Update fundraising total" -- src/lib/data/fundraising.json
+            git push
+          fi
+
+  # Only rebuild when the number actually moved.
+  deploy:
+    needs: refresh
+    if: needs.refresh.outputs.changed == 'true'
+    uses: ./.github/workflows/deploy.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write

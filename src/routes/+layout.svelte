@@ -14,7 +14,7 @@
 		{ href: '/research', label: 'Research' },
 		{ href: '/writing', label: 'Writing' },
 		{ href: '/hackathons', label: 'Hackathons' },
-		{ href: '/play', label: 'Play' },
+		{ href: '/side', label: 'Side' },
 		{ href: '/contact', label: 'Contact' }
 	];
 

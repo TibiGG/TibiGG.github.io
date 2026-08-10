@@ -1,3 +1,5 @@
+import live from './fundraising.json';
+
 // The games I actually play. The `why` lines are mine to rewrite whenever the
 // mood changes; nothing else on the page depends on their wording.
 
@@ -39,23 +41,64 @@ export const games = [
 	}
 ];
 
+// Training, framed by what it was for. The exercise is the mechanism; the
+// fundraisers are the point, and they are what the section leads with.
+export const training = {
+	blurb: `Yoga, running and strength work, on much the same bargain as Wing Chun: a small thing
+		repeated daily until it stops being a decision. A half marathon is the furthest that has
+		taken me so far. Winters go to snowboarding, which I have been doing for more than half
+		my life by now. Twice it has been more interesting to point the habit at something other
+		than myself.`,
+	fundraisers: [
+		{
+			cause: 'Cancer Research UK',
+			feat: '10 pull-ups a day for a month',
+			target: 1000,
+			// Scraped from the giving page by scripts/fetch-fundraising.mjs and
+			// refreshed by .github/workflows/fundraising.yml. Don't edit by hand.
+			raised: live['cancer-research-uk'].raised,
+			checked: live['cancer-research-uk'].checked,
+			ongoing: true,
+			// Add the fundraising link and the card grows a donate button.
+			url: 'https://fundraise.cancerresearchuk.org/page/tibi-geo'
+		},
+		{
+			cause: 'Teenage Cancer Trust',
+			feat: '100 push-ups a day for a month',
+			target: 1000,
+			raised: 1000,
+			checked: null,
+			ongoing: false,
+			url: 'https://www.justgiving.com/page/tibi-geo'
+		}
+	]
+};
+
+// The ongoing fundraiser, for the pieces of the page that lead with it (the
+// progress bar, and the amount in the browser tab).
+export const liveFundraiser = training.fundraisers.find((f) => f.ongoing) ?? null;
+
 export const wingChun = {
 	blurb: `Wing Chun is a close-range southern Chinese martial art built on a small number of
-		ideas applied relentlessly. It rewards economy over flourish, which is roughly how I
-		like to write code too.`,
+		ideas. It was the first art Bruce Lee mastered, taught to him by Grandmaster Ip Man. The
+		focus is on perfecting a finite set of moves, applying them through a small set of
+		principles, and developing tactile sensitivity through the continuous iteration of drills.
+		Through daily, mindful, long-term practice, the art develops a highly adaptive person who
+		prioritises efficiency and precision in everything — which translates rather nicely into my
+		work.`,
 	// Three principles, shown as cards.
 	principles: [
 		{
-			name: 'Centerline',
-			gloss: 'Attack and defend along the shortest line between us. The straight path wins.'
+			name: 'Centerline Theory',
+			gloss: 'The shortest path between you and your opponent is a straight line between your centre and theirs, so whoever controls the centreline controls the game. Very similar to chess.'
 		},
 		{
 			name: 'Chi Sau',
-			gloss: 'Sticking hands: train sensitivity until your arms answer before you decide.'
+			gloss: 'Also known as "sticky hands", this is the drill that defines Wing Chun. By training the sensitivity of your arms, you stop relying on your eyes in a fight. At close range, you need instinct to react to openings instantly, and to make defence automatic.'
 		},
 		{
-			name: 'Economy of motion',
-			gloss: 'Never take two movements where one will do. Delete the flourish.'
+			name: 'Adaptability',
+			gloss: 'You never force a plan. You stay ready to adapt to whatever your opponent, or the world, is throwing at you. This is the concept that ties in surprisingly closely to my research.'
 		}
 	]
 };

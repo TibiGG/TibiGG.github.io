@@ -9,7 +9,7 @@ const pages: { path: string; priority: number; changefreq: string }[] = [
 	{ path: '/research/', priority: 0.9, changefreq: 'monthly' },
 	{ path: '/writing/', priority: 0.8, changefreq: 'weekly' },
 	{ path: '/hackathons/', priority: 0.7, changefreq: 'yearly' },
-	{ path: '/play/', priority: 0.5, changefreq: 'yearly' },
+	{ path: '/side/', priority: 0.5, changefreq: 'yearly' },
 	{ path: '/cv/', priority: 0.6, changefreq: 'monthly' },
 	{ path: '/contact/', priority: 0.5, changefreq: 'yearly' }
 ];

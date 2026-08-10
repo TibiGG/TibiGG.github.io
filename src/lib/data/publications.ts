@@ -3,7 +3,7 @@ export type Publication = {
 	authors: string[];
 	venue: string;
 	year: number;
-	status: 'published' | 'in review' | 'preprint';
+	status: 'published' | 'under review' | 'preprint';
 	// Decides the BibTeX entry type on the research page: conference papers are
 	// @inproceedings, journal submissions @article, anything else @misc.
 	kind?: 'inproceedings' | 'article' | 'misc';
@@ -20,9 +20,12 @@ export const thesis = {
 	programme: 'PhD, Safe and Trusted AI',
 	started: 2022,
 	supervisors: ['Dalal Alrajeh', 'Sebastian Uchitel'],
-	// Your words, in your own time. Left empty, the research page shows the title
-	// and supervisors and skips the paragraph entirely.
-	summary: ''
+	summary: `Formal specifications, when deployed in real life, may require online adaptation.
+		Although methods to perform said adaptation exist and are well studied, the suitability of
+		the proposed adaptation has not been quantified for logic-based formalisms, diminishing
+		trust in the resulting adaptation. This work attempts to fill that gap for GR(1)
+		specifications, generating general-purpose properties and rules applicable over a wide
+		range of formalisms.`
 };
 
 // Author lists and titles for the two arXiv entries are taken from the arXiv
@@ -33,13 +36,13 @@ export const publications: Publication[] = [
 		authors: ['Tiberiu-Andrei Georgescu', 'Dalal Alrajeh', 'Sebastian Uchitel'],
 		venue: 'Journal paper',
 		year: 2026,
-		status: 'in review',
+		status: 'under review',
 		kind: 'article',
-		abstract: `Assume-guarantee specifications for reactive systems lean on their environment
-			assumptions being correct. When the assumptions fail, the guarantees can fail with
-			them. This work learns the environment's real behaviour with logic-based machine
-			learning, then adapts the guarantees to restore correctness via oracle-guided
-			inductive synthesis.`,
+		abstract: `Assume-guarantee specifications for reactive systems rely on the correctness of
+			their environmental assumptions. Should those assumptions fail, the guarantees can fail
+			silently with them. This work inductively learns the environment's real behaviour from
+			observations, then adapts the guarantees to restore correctness via an oracle-guided
+			inductive synthesis loop.`,
 		links: []
 	},
 	{
@@ -56,11 +59,12 @@ export const publications: Publication[] = [
 		year: 2026,
 		status: 'published',
 		kind: 'inproceedings',
-		abstract: `Shielding keeps a reinforcement learning agent inside a formal safety
-			specification, but the usual shield is static: when the environment stops behaving
-			the way the specification assumed, the agent fails quietly. This work detects that
-			breakdown and repairs the GR(1) specification at runtime with inductive logic
-			programming, weakening goals minimally and only when necessary.`,
+		abstract: `Shielding ensures an autonomous agent follows a formal safety specification.
+			Not all such specifications, however, make explicit the underlying conditions they
+			require to hold, and should those conditions (assumptions) ever break, the shield may no
+			longer be enforceable. This work detects that breakdown and repairs the underlying
+			specification at runtime with inductive logic programming, degrading safety goals
+			minimally and only when necessary.`,
 		links: [
 			{ label: 'arXiv', url: 'https://arxiv.org/abs/2511.02605' },
 			{ label: 'NeSy', url: 'https://nesy-ai.org/conferences/nesy-2026' }

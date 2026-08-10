@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # A push made with GITHUB_TOKEN does not start another workflow, so the
+  # fundraising job calls this one directly after committing a new total.
+  workflow_call:
 
 permissions:
   contents: read

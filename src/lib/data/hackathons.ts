@@ -22,7 +22,7 @@ export const hackathons: Hackathon[] = [
 		event: 'Building an AI Scientist Hackathon',
 		date: '2026-07-03',
 		project: 'ReBind: The Personal AI Clinician',
-		tagline: 'An agentic clinician that reasons over a patient’s own history.',
+		tagline: 'A specialised clinic in the palm of your hand: it monitors your progress to propose the treatment plan that fits you.',
 		won: false,
 		stack: ['Agentic infrastructure', 'React', 'Python'],
 		links: [
@@ -35,7 +35,7 @@ export const hackathons: Hackathon[] = [
 		prize: 'Most Stylish Hack',
 		date: '2022-02-22',
 		project: 'StoryTelly',
-		tagline: 'Automated generation of animated children’s stories.',
+		tagline: 'Generating animated children’s stories way before ChatGPT and Midjourney.',
 		challenge: 'Build an application showcasing artistic style.',
 		stack: ['GPT-3', 'NLP', 'Python'],
 		links: [{ label: 'Devpost', url: 'https://devpost.com/software/storytelly' }]
@@ -75,7 +75,7 @@ export const hackathons: Hackathon[] = [
 		prize: 'Third Place & Decentralized Identity Prize',
 		date: '2019-11-17',
 		project: 'UnID',
-		tagline: 'A smart ID card that decentralises your personal data and answers questions about you without disclosing them.',
+		tagline: 'A smart ID card that authenticates you without disclosing personal data.',
 		challenge: 'Learn blockchain and build something on it in 24 hours.',
 		stack: ['Java', 'Node', 'Blockchain', 'Sovrin'],
 		links: [{ label: 'GitLab', url: 'https://gitlab.doc.ic.ac.uk/blockchain-hack18/unid' }],
@@ -87,7 +87,7 @@ export const hackathons: Hackathon[] = [
 		prize: 'UN SDG 7 & 11 Challenge',
 		date: '2019-02-16',
 		project: 'Enercom',
-		tagline: 'Communities of energy-efficient houses that generate enough power to sustain themselves.',
+		tagline: 'A self-sustainable community of energy-efficient houses.',
 		challenge: 'Build an application supporting UN Sustainable Development Goals 7 and 11.',
 		stack: ['PWA', 'JavaScript', 'Python', 'Java'],
 		links: [{ label: 'GitHub', url: 'https://github.com/TibiGG/EnerCom' }]
@@ -97,7 +97,7 @@ export const hackathons: Hackathon[] = [
 		prize: 'Second Place, Mega Lego Sumo, Tallinn',
 		date: '2018-11-25',
 		project: 'Mega Sumo Bot',
-		tagline: 'A 3kg Lego sumo robot, scaled up from a design built for a robot a third its weight.',
+		tagline: 'First time scaling up my Lego sumo bot to three times its original weight. Second international podium.',
 		challenge: 'Build an up-to-3kg Lego sumo robot.',
 		stack: ['RobotC', 'Mechanical design'],
 		links: [{ label: 'Robotex', url: 'https://robotex.international/' }]
@@ -116,7 +116,7 @@ export const hackathons: Hackathon[] = [
 		prize: 'First Prize, Lego Sumo',
 		date: '2017-01-01',
 		project: 'Lego Sumo Bot',
-		tagline: 'Two robots, one ring, one of them still standing.',
+		tagline: 'Second national Lego Sumo win.',
 		stack: ['RobotC', 'Mechanical design'],
 		links: [{ label: 'Infomatrix', url: 'http://infomatrix.ro/' }]
 	},
@@ -125,7 +125,7 @@ export const hackathons: Hackathon[] = [
 		prize: 'First Prize, Lego Sumo',
 		date: '2016-06-01',
 		project: 'Lego Sumo Bot',
-		tagline: 'The same ring, a year earlier.',
+		tagline: 'First national Lego Sumo win.',
 		stack: ['RobotC', 'Mechanical design'],
 		links: [{ label: 'Infomatrix', url: 'http://infomatrix.ro/' }]
 	},
@@ -134,7 +134,7 @@ export const hackathons: Hackathon[] = [
 		prize: 'Third Prize, Lego Sumo',
 		date: '2016-01-01',
 		project: 'Lego Sumo Bot',
-		tagline: 'First trip to Tallinn, first podium.',
+		tagline: 'First international Lego Sumo podium.',
 		stack: ['RobotC', 'Mechanical design'],
 		links: [{ label: 'Robotex', url: 'https://robotex.international/' }]
 	}

@@ -15,8 +15,8 @@
 
 <h1 class="centerline">Hackathons &amp; competitions</h1>
 <p class="lede">
-	{wins.length} weekends that ended in a trophy, and a few that ended in something better. Some have
-	write-ups; the rest exist mostly as blurry photos and a vague memory of the 4am pivot.
+	{wins.length} weekends that earned me and my team a prize, and a few that ended in something better. Most have
+	a story. If they don't yet, I'll remember it, and eventually share it.
 </p>
 
 <div class="grid">

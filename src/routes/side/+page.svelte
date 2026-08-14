@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { games, wingChun, training, liveFundraiser } from '$lib/data/play';
+	import { boardGames, wingChun, training, liveFundraiser } from '$lib/data/play';
 	import { profile } from '$lib/data/profile';
 	import Seo from '$lib/Seo.svelte';
 
@@ -41,8 +41,11 @@
 
 <section>
 	<h2 class="centerline">On the table</h2>
+	{#if boardGames.blurb.trim()}
+		<p class="blurb">{boardGames.blurb}</p>
+	{/if}
 	<div class="shelf">
-		{#each games as g}
+		{#each boardGames.games as g}
 			<article class="game card tilt">
 				<span class="weight {g.weight}">{g.weight}</span>
 				<h3>{g.title}</h3>

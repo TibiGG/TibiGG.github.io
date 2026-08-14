@@ -34,7 +34,7 @@ export const publications: Publication[] = [
 	{
 		title: 'Learning to Adapt GR(1) Specifications',
 		authors: ['Tiberiu-Andrei Georgescu', 'Dalal Alrajeh', 'Sebastian Uchitel'],
-		venue: 'Journal paper',
+		venue: 'ACM Transactions on Software Engineering and Methodology (TOSEM)',
 		year: 2026,
 		status: 'under review',
 		kind: 'article',

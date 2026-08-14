@@ -1,4 +1,5 @@
 import live from './fundraising.json';
+import { snowboardSeasons, lifeShare } from '$lib/elapsed';
 
 // The games I actually play. The `why` lines are mine to rewrite whenever the
 // mood changes; nothing else on the page depends on their wording.
@@ -53,15 +54,19 @@ export const boardGames = {
 // Training, framed by what it was for. The exercise is the mechanism; the
 // fundraisers are the point, and they are what the section leads with.
 export const training = {
-	blurb: `Everyone loves lifting heavy, but the body needs more than that. The body is made to move through
-		all its ranges of motion, which makes yoga the perfect medium to practise that, and to bring in
-		some mindfulness for an efficient use of my time. The body was also made to run. Anything you
-		can do that gets you closer to how our ancestors lived for thousands of years is a good thing
-		for not just your body but your mind as well. Plus, once you have had that runner's high, it is
-		difficult to stop :).
-		I have run a half marathon, and I have been snowboarding every winter for 15 years already.
-		Finally, I have used my fitness to take on some fundraising challenges. The results are below,
-		and I am still raising, if you are happy to get involved!`,
+	// A getter, not a plain string, because the snowboarding count is worked out
+	// at render rather than frozen into the file. See $lib/elapsed.
+	get blurb() {
+		return `Everyone loves lifting heavy, but the body needs more than that. The body is made to move through
+			all its ranges of motion, which makes yoga the perfect medium to practise that, and to bring in
+			some mindfulness for an efficient use of my time. The body was also made to run. Anything you
+			can do that gets you closer to how our ancestors lived for thousands of years is a good thing
+			for not just your body but your mind as well. Plus, once you have had that runner's high, it is
+			difficult to stop :).
+			I have run a half marathon, and I have been snowboarding every winter for ${snowboardSeasons()} seasons already, ${lifeShare()}.
+			Finally, I have used my fitness to take on some fundraising challenges. The results are below,
+			and I am still raising, if you are happy to get involved!`;
+	},
 	fundraisers: [
 		{
 			cause: 'Cancer Research UK',

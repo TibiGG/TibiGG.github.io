@@ -21,3 +21,6 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Generated from /cv/ at build time by scripts/print-cv.mjs.
+build/cv.pdf

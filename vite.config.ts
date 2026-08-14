@@ -50,6 +50,13 @@ export default defineConfig({
 			paths: { base },
 			prerender: {
 				entries: ['*'],
+				// /cv.pdf is printed from the built page after this step, so the
+				// crawler is always going to find it missing. Every other dead link
+				// is still a build failure.
+				handleHttpError: ({ path, message }) => {
+					if (path === '/cv.pdf') return;
+					throw new Error(message);
+				},
 				// With no posts written yet, /writing/[slug] has no entries to
 				// generate, and an unreachable prerenderable route fails the build by
 				// default. That one route is legitimately empty until the first post

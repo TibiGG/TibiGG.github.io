@@ -20,7 +20,9 @@ export const profile = {
 	site: 'https://tibigg.github.io',
 	// Drop a PDF at static/cv.pdf and set this to '/cv.pdf' to offer the real
 	// file alongside the printable /cv page. Empty means "print the page instead".
-	cvPdf: '',
+	// Generated from /cv/ at build time by scripts/print-cv.mjs, never committed,
+	// so the download and the page can never disagree.
+	cvPdf: '/cv.pdf',
 	links: {
 		github: 'https://github.com/TibiIC',
 		githubOld: 'https://github.com/TibiGG',

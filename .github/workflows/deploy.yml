@@ -37,6 +37,11 @@ jobs:
           # empty. For a project repo, set it to: /${{ github.event.repository.name }}
           BASE_PATH: ''
 
+      # The downloadable CV is printed from the page that was just built, so it
+      # cannot fall behind the site. Runner images ship Chrome.
+      - name: Print the CV to PDF
+        run: npm run cv:pdf
+
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3

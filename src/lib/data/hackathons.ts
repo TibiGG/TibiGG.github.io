@@ -30,6 +30,8 @@ export const hackathons: Hackathon[] = [
 		date: '2026-07-03',
 		project: 'ReBind: The Personal AI Clinician',
 		tagline: 'A specialised clinic in the palm of your hand: it monitors your progress to propose the treatment plan that fits you.',
+		challenge:
+			'Build an AI scientist on the sponsors’ agentic drug generation, validation and testing tools.',
 		cvSummary:
 			'Patient-facing agent that tracks a course of treatment and adapts the plan as the patient responds.',
 		won: false,

@@ -22,7 +22,7 @@ export const thesis = {
 	supervisors: ['Dalal Alrajeh', 'Sebastian Uchitel'],
 	summary: `Formal specifications, when deployed in real life, may require online adaptation.
 		Although methods to perform said adaptation exist and are well studied, the suitability of
-		the proposed adaptation has not been quantified for logic-based formalisms, diminishing
+		the proposed adaptation has not been sufficiently quantified for logic-based formalisms, diminishing
 		trust in the resulting adaptation. This work attempts to fill that gap for GR(1)
 		specifications, generating general-purpose properties and rules applicable over a wide
 		range of formalisms.`

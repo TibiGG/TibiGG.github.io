@@ -1,0 +1,14 @@
+---
+title: Why Svelte?
+date: 2026-08-14
+summary: 'In a world of vibe-coding, and with GitHub stuffed by React projects, why choose a niche web development language?'
+tags: ['draft']
+draft: true
+---
+
+Write here. This is markdown, so the usual things work: **bold**, _italic_,
+[links](https://example.com), lists, `inline code` and fenced blocks.
+
+Because the file is `.svx` rather than `.md`, Svelte works too — you can import a
+component at the top and drop it mid-paragraph when a post needs a figure or
+something interactive.

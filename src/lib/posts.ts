@@ -18,6 +18,13 @@ type Module = { metadata: PostMeta; default: Component };
 
 // Eager, so the index page can show titles and dates without a second fetch.
 // The site is small enough that bundling every post is cheaper than the round trip.
+//
+// The pattern is deliberately non-recursive: `*` does not cross a `/`, so
+// anything in src/lib/posts/drafts/ is never compiled and never reaches the
+// bundle. That matters, because `draft: true` below only filters at runtime —
+// the file would still be readable in a public JS chunk. Unfinished writing
+// belongs in drafts/; the frontmatter flag is the second line of defence, for
+// something finished that you are holding back.
 const modules = import.meta.glob<Module>('./posts/*.svx', { eager: true });
 
 const all: Post[] = Object.entries(modules)

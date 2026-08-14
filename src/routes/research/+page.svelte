@@ -4,6 +4,7 @@
 	import { profile } from '$lib/data/profile';
 	import { bibtex, citeKey } from '$lib/bibtex';
 	import { scholarlyArticle } from '$lib/schema';
+	import { academicDate } from '$lib/date';
 	import Seo from '$lib/Seo.svelte';
 
 	const byYear = [...publications].sort((a, b) => b.year - a.year);
@@ -37,11 +38,6 @@
 	// Most recently reviewed for, first.
 	const reviewing = [...peerReview].sort((a, b) => Math.max(...b.years) - Math.max(...a.years));
 
-	const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-	const monthYear = (iso: string) => {
-		const [y, m] = iso.split('-');
-		return `${MONTHS[Number(m) - 1]} ${y}`;
-	};
 </script>
 
 <Seo
@@ -111,7 +107,7 @@
 	<ul class="rows">
 		{#each talksByDate as t}
 			<li>
-				<span class="when">{monthYear(t.date)}</span>
+				<span class="when">{academicDate(t.date)}</span>
 				<div>
 					<h3>
 						{#if t.url}
@@ -144,7 +140,7 @@
 						{/if}
 					</h3>
 					<p class="org">
-						{r.role}{#if r.type} · {r.type}{/if}
+						{r.role}{#if r.type}{' · '}{r.type}{/if}
 					</p>
 				</div>
 			</li>
@@ -157,7 +153,7 @@
 	<div class="outreach">
 		{#each outreachByDate as o}
 			<article class="card tilt">
-				<p class="eyebrow">{monthYear(o.date)}{#if o.kind} · {o.kind}{/if}</p>
+				<p class="eyebrow">{academicDate(o.date)}{#if o.kind}{' · '}{o.kind}{/if}</p>
 				<h3>
 					{#if o.url}
 						<a href={o.url} target="_blank" rel="noopener noreferrer">{o.title}</a>

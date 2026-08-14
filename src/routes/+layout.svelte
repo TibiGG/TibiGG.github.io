@@ -39,7 +39,9 @@
 	/>
 </svelte:head>
 
-<header>
+<!-- `site` marks this as the site chrome, so the print rules can hide it without
+     also hiding a page's own <header>, like the one heading the CV. -->
+<header class="site">
 	<div class="wrap bar">
 		<a class="brand" href="{base}/">
 			<Logo />
@@ -64,7 +66,7 @@
 	{@render children()}
 </main>
 
-<footer>
+<footer class="site">
 	<div class="wrap foot">
 		<span>© {new Date().getFullYear()} {profile.name}</span>
 		<span class="dot">·</span>

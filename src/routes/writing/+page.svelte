@@ -10,7 +10,7 @@
 <Seo
 	title="Writing · {profile.name}"
 	description="Posts and articles by {profile.name} on formal methods, hackathons and side projects."
-	schema={posts.map(blogPosting)}
+	schema={posts.length ? posts.map(blogPosting) : undefined}
 />
 
 <h1 class="centerline">Writing</h1>
@@ -34,7 +34,7 @@
 		{/each}
 	</ul>
 {:else}
-	<p class="empty">Nothing published here yet. The LinkedIn pieces below are the back catalogue.</p>
+	<p class="empty">Thinking of turning this page into a blog, but nothing's published here yet. I'll write good in my own time.</p>
 {/if}
 
 <h2 class="centerline elsewhere">Elsewhere</h2>

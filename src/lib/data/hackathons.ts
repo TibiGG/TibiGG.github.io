@@ -13,6 +13,13 @@ export type Hackathon = {
 	// Entered but didn't place. Counts are drawn from `wins` below, so an entry
 	// marked this way never gets counted as one.
 	won?: false;
+	// A CV-register version of the tagline, for entries whose site copy is too
+	// playful to put in front of a hiring panel. Falls back to `tagline`.
+	cvSummary?: string;
+	// Whether the CV lists this one on its own. Defaults to "yes if it placed".
+	// Set true to carry a strong entry that didn't place, false for anything
+	// folded into the grouped robotics line below.
+	onCv?: boolean;
 };
 
 // Seeded from your CV. Add a `blogPost` URL to any of these as you write them up.
@@ -23,7 +30,12 @@ export const hackathons: Hackathon[] = [
 		date: '2026-07-03',
 		project: 'ReBind: The Personal AI Clinician',
 		tagline: 'A specialised clinic in the palm of your hand: it monitors your progress to propose the treatment plan that fits you.',
+		cvSummary:
+			'Patient-facing agent that tracks a course of treatment and adapts the plan as the patient responds.',
 		won: false,
+		// Didn't place, but it is the most recent and the most substantial build,
+		// so the CV carries it on merit rather than on a prize.
+		onCv: true,
 		stack: ['Agentic infrastructure', 'React', 'Python'],
 		links: [
 			{ label: 'Event', url: 'https://luma.com/yw0c3upd' },
@@ -36,6 +48,7 @@ export const hackathons: Hackathon[] = [
 		date: '2022-02-22',
 		project: 'StoryTelly',
 		tagline: 'Generating animated children’s stories way before ChatGPT and Midjourney.',
+		cvSummary: 'Generated animated children’s stories from a short written prompt.',
 		challenge: 'Build an application showcasing artistic style.',
 		stack: ['GPT-3', 'NLP', 'Python'],
 		links: [{ label: 'Devpost', url: 'https://devpost.com/software/storytelly' }]
@@ -96,6 +109,7 @@ export const hackathons: Hackathon[] = [
 		event: 'Robotex International 2018',
 		prize: 'Second Place, Mega Lego Sumo, Tallinn',
 		date: '2018-11-25',
+		onCv: false,
 		project: 'Mega Sumo Bot',
 		tagline: 'First time scaling up my Lego sumo bot to three times its original weight. Second international podium.',
 		challenge: 'Build an up-to-3kg Lego sumo robot.',
@@ -105,6 +119,7 @@ export const hackathons: Hackathon[] = [
 	{
 		event: 'First Tech Challenge Romania 2018',
 		date: '2018-01-01',
+		onCv: false,
 		project: 'FTC Robot',
 		tagline: 'The national round of the FIRST Tech Challenge.',
 		won: false,
@@ -115,6 +130,7 @@ export const hackathons: Hackathon[] = [
 		event: 'Infomatrix 2017',
 		prize: 'First Prize, Lego Sumo',
 		date: '2017-01-01',
+		onCv: false,
 		project: 'Lego Sumo Bot',
 		tagline: 'Second national Lego Sumo win.',
 		stack: ['RobotC', 'Mechanical design'],
@@ -124,6 +140,7 @@ export const hackathons: Hackathon[] = [
 		event: 'Infomatrix 2016',
 		prize: 'First Prize, Lego Sumo',
 		date: '2016-06-01',
+		onCv: false,
 		project: 'Lego Sumo Bot',
 		tagline: 'First national Lego Sumo win.',
 		stack: ['RobotC', 'Mechanical design'],
@@ -133,6 +150,7 @@ export const hackathons: Hackathon[] = [
 		event: 'Robotex International 2016',
 		prize: 'Third Prize, Lego Sumo',
 		date: '2016-01-01',
+		onCv: false,
 		project: 'Lego Sumo Bot',
 		tagline: 'First international Lego Sumo podium.',
 		stack: ['RobotC', 'Mechanical design'],
@@ -144,8 +162,53 @@ export const hackathons: Hackathon[] = [
 // adding an entry that didn't place can't inflate a "wins" number by accident.
 export const wins = hackathons.filter((h) => h.won !== false);
 
+export type CvCompetition = {
+	when: string; // the left column: a year, or a range
+	project: string; // the headline, because a reader knows projects, not events
+	prize?: string; // rides on the heading line, where it cannot be skimmed past
+	event: string;
+	challenge?: string; // what the organisers asked for, labelled as such
+	summary: string;
+	stack: string[];
+};
+
+// The CV's version of this list, which is a different document with a different
+// reader. Someone outside the hackathon scene cannot rank "OxfordHack" against
+// "ICHack", so the project leads and the event trails as the credential. The
+// four Lego Sumo podiums say the same thing four times, so they collapse into a
+// single line; the site keeps them separate, where there is room.
+const robotics: CvCompetition = {
+	when: '2016 – 2018',
+	project: 'Autonomous Lego Sumo robots',
+	prize: '4 national & international podiums',
+	event: 'Infomatrix 2016, 2017 · Robotex International 2016, 2018',
+	challenge: 'Build and program an autonomous Lego sumo robot, up to 3kg in the mega class.',
+	summary:
+		'First place at Infomatrix 2016 and 2017, second in the 3kg class at Robotex International 2018, third at Robotex International 2016.',
+	stack: ['RobotC', 'Mechanical design']
+};
+
+export const cvCompetitions: CvCompetition[] = [
+	...hackathons
+		.filter((h) => h.onCv ?? h.won !== false)
+		.map((h) => ({
+			when: h.date.slice(0, 4),
+			project: h.project,
+			prize: h.prize,
+			event: h.event,
+			challenge: h.challenge,
+			summary: h.cvSummary ?? h.tagline,
+			stack: h.stack
+		})),
+	robotics
+];
+
 // Other LinkedIn write-ups that aren't hackathons, shown on the writing strip.
 export const writing = [
+	{
+		title: 'How to Win a Hackathon',
+		url: 'https://www.linkedin.com/pulse/how-win-hackathon-tiberiu-andrei-georgescu/'
+	},
 	{
 		title: 'ChainHack24: My First Blockchain Hackathon',
 		url: 'https://www.linkedin.com/pulse/chainhack24-my-first-hackathon-blockchain-tiberiu-andrei-georgescu/'

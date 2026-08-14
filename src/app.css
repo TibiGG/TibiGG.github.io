@@ -227,7 +227,13 @@ a:hover {
 /* Printing is really only meant for /cv, but every page benefits from losing the
    navigation, the shadows and the paper texture on the way to a printer. */
 @media print {
-	:root {
+	/* Paper is always light, whatever the toggle says. The dark rule above is
+	   `:root[data-theme='dark']`, which outweighs a bare `:root`, so this has to
+	   name the attribute selectors too or a dark-mode visitor prints pale grey
+	   text onto white. */
+	:root,
+	:root[data-theme='light'],
+	:root[data-theme='dark'] {
 		color-scheme: light;
 	}
 
@@ -238,8 +244,9 @@ a:hover {
 		line-height: 1.45;
 	}
 
-	header,
-	footer {
+	/* The site chrome only. A page's own <header> stays on the page. */
+	header.site,
+	footer.site {
 		display: none !important;
 	}
 

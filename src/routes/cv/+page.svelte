@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { profile } from '$lib/data/profile';
-	import { roles, education, skills } from '$lib/data/experience';
+	import { academicRoles, industryRoles, education, skills } from '$lib/data/experience';
 	import { publications } from '$lib/data/publications';
-	import { wins } from '$lib/data/hackathons';
+	import { cvCompetitions } from '$lib/data/hackathons';
 	import { presentations, peerReview, outreach } from '$lib/data/service';
 	import { person } from '$lib/schema';
+	import { academicDate } from '$lib/date';
 	import Seo from '$lib/Seo.svelte';
 
 	const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -19,8 +20,6 @@
 	// The CV is the same data as the rest of the site, laid out for one sheet of
 	// paper, so it can never drift out of date the way a checked-in PDF does.
 	const papers = [...publications].sort((a, b) => b.year - a.year);
-	// Only entries that actually placed belong under "Awards".
-	const awards = [...wins].sort((a, b) => b.date.localeCompare(a.date));
 
 	const newestFirst = <T extends { date: string }>(xs: T[]) =>
 		[...xs].sort((a, b) => b.date.localeCompare(a.date));
@@ -47,7 +46,6 @@
 <article class="cv">
 	<header>
 		<h1>{profile.name}</h1>
-		<p class="roles">{profile.roles.join(' · ')}</p>
 		<p class="contact">
 			<a href="mailto:{profile.email}">{profile.email}</a>
 			<span>·</span>
@@ -75,19 +73,25 @@
 		{/each}
 	</section>
 
-	<section>
-		<h2>Experience</h2>
-		{#each roles as r}
-			<div class="entry">
-				<p class="when">{when(r.start)} – {when(r.end)}</p>
-				<div>
-					<h3>{r.title}</h3>
-					<p class="org">{r.org}</p>
-					<p class="detail">{r.skills.join(' · ')}</p>
+	{#each [{ heading: 'Academic experience', list: academicRoles }, { heading: 'Industry experience', list: industryRoles }] as group}
+		<section>
+			<h2>{group.heading}</h2>
+			{#each group.list as r}
+				<div class="entry">
+					<p class="when">{when(r.start)} – {when(r.end)}</p>
+					<div>
+						<h3>{r.title}</h3>
+						<p class="org">{r.org}</p>
+						{#if r.detail}<p class="detail">{r.detail}</p>{/if}
+						{#if r.courses?.length}
+							<p class="detail"><em>Courses:</em> {r.courses.join(' · ')}</p>
+						{/if}
+						<p class="detail">{r.skills.join(' · ')}</p>
+					</div>
 				</div>
-			</div>
-		{/each}
-	</section>
+			{/each}
+		</section>
+	{/each}
 
 	<section>
 		<h2>Publications</h2>
@@ -98,7 +102,7 @@
 					<h3>{p.title}</h3>
 					<p class="org">{p.authors.join(', ')}</p>
 					<p class="detail">
-						{p.venue}{#if p.status !== 'published'} · <em>{p.status}</em>{/if}
+						{p.venue}{#if p.status !== 'published'}{' · '}<em>{p.status}</em>{/if}
 					</p>
 				</div>
 			</div>
@@ -110,7 +114,7 @@
 			<h2>Presentations</h2>
 			{#each talks as t}
 				<div class="entry">
-					<p class="when">{when(t.date.slice(0, 7))}</p>
+					<p class="when">{academicDate(t.date)}</p>
 					<div>
 						<h3>{t.title}</h3>
 						<p class="org">{t.event} · {t.place}</p>
@@ -129,7 +133,7 @@
 					<p class="when">{r.years.join(', ')}</p>
 					<div>
 						<h3>{r.venue}</h3>
-						<p class="org">{r.role}{#if r.type} · {r.type}{/if}</p>
+						<p class="org">{r.role}{#if r.type}{' · '}{r.type}{/if}</p>
 					</div>
 				</div>
 			{/each}
@@ -141,7 +145,7 @@
 			<h2>Public engagement</h2>
 			{#each engagement as o}
 				<div class="entry">
-					<p class="when">{when(o.date.slice(0, 7))}</p>
+					<p class="when">{academicDate(o.date)}</p>
 					<div>
 						<h3>{o.title}</h3>
 						<p class="org">{o.audience}{#if o.place} · {o.place}{/if}</p>
@@ -153,13 +157,23 @@
 	{/if}
 
 	<section>
-		<h2>Awards</h2>
-		{#each awards as a}
+		<h2>Competitions &amp; hackathons</h2>
+		{#each cvCompetitions as c}
 			<div class="entry">
-				<p class="when">{a.date.slice(0, 4)}</p>
+				<p class="when">{c.when}</p>
 				<div>
-					<h3>{a.prize ?? a.project}</h3>
-					<p class="org">{a.event} · {a.project}</p>
+					<!-- The prize sits on the heading line, in the same weight as the
+					     project: it is the part a reader is scanning for, and in grey
+					     small print underneath it was being skimmed straight past. -->
+					<h3>
+						{c.project}{#if c.prize}<span class="prize">{' — '}{c.prize}</span>{/if}
+					</h3>
+					<p class="org">{c.event}</p>
+					{#if c.challenge}
+						<p class="detail"><em>Challenge:</em> {c.challenge}</p>
+					{/if}
+					<p class="detail">{c.summary}</p>
+					<p class="detail">{c.stack.join(' · ')}</p>
 				</div>
 			</div>
 		{/each}
@@ -199,13 +213,10 @@
 		margin: 0 0 0.35rem;
 	}
 
-	.roles {
-		font-family: var(--display);
-		font-weight: 600;
-		color: var(--teal);
-		margin: 0 0 0.6rem;
-	}
-
+	/* The CV is a document, not a page of the site: no red, no teal, just ink on
+	   paper. It has to survive being printed in black and white and read as a CV
+	   rather than as a brand artefact. The site's tagline roles stay on the site;
+	   the CV header is the name and the ways to reach it, nothing else. */
 	.contact {
 		margin: 0;
 		font-size: 0.85rem;
@@ -224,10 +235,19 @@
 		font-size: 0.82rem;
 		letter-spacing: 0.14em;
 		text-transform: uppercase;
-		color: var(--red);
+		color: var(--ink);
 		margin: 0 0 0.9rem;
 		padding-bottom: 0.35rem;
 		border-bottom: 1px solid var(--rule);
+	}
+
+	.contact a {
+		color: inherit;
+	}
+
+	/* Same weight as the project it follows, so the two read as one heading. */
+	.prize {
+		font-weight: inherit;
 	}
 
 	.entry {
@@ -282,6 +302,32 @@
 
 		.cv {
 			max-width: none;
+		}
+
+		/* Real black, not the near-black token, and a grey for the secondary
+		   lines that is dark enough to survive a cheap printer. The tokens are
+		   fine on a screen but print washed out. */
+		.cv,
+		.cv h1,
+		.cv h2,
+		.cv h3,
+		.cv a {
+			color: #000;
+		}
+
+		.contact,
+		.when,
+		.org,
+		.detail {
+			color: #333;
+		}
+
+		h2 {
+			border-bottom-color: #000;
+		}
+
+		header {
+			border-bottom-color: #000;
 		}
 
 		.entry {

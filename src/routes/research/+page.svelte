@@ -161,7 +161,7 @@
 						{o.title}
 					{/if}
 				</h3>
-				<p class="org">{o.audience}{#if o.place} · {o.place}{/if}</p>
+				<p class="org">{[o.event ?? o.audience, o.place].filter(Boolean).join(' · ')}</p>
 				{#if o.blurb}
 					<p class="blurb">{o.blurb}</p>
 				{/if}

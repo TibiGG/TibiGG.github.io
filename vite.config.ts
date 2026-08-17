@@ -1,8 +1,44 @@
 import adapter from '@sveltejs/adapter-static';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { mdsvex } from 'mdsvex';
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 import { parse as parseYaml } from 'yaml';
+import { readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { printToPdf } from './scripts/chrome.mjs';
+
+// In production /cv.pdf is printed from the built page by scripts/print-cv.mjs.
+// Under `vite dev` there is no build, so this prints the page off the running dev
+// server on request instead. Slower per click, but it is always the CV you are
+// currently looking at, and the download button behaves the same in both places.
+const cvPdfInDev: Plugin = {
+	name: 'cv-pdf-dev',
+	apply: 'serve',
+	configureServer(server) {
+		server.middlewares.use('/cv.pdf', async (req, res, next) => {
+			const host = req.headers.host;
+			if (!host) return next();
+
+			const out = join(tmpdir(), `cv-dev-${process.pid}.pdf`);
+			try {
+				await printToPdf(`http://${host}/cv/`, out);
+				const pdf = readFileSync(out);
+				res.setHeader('content-type', 'application/pdf');
+				res.setHeader('content-length', pdf.byteLength);
+				res.end(pdf);
+			} catch (e) {
+				// Never answer with HTML here: the browser would save the error page
+				// as cv.pdf and it would look like a corrupt download.
+				res.statusCode = 500;
+				res.setHeader('content-type', 'text/plain');
+				res.end(`Could not print the CV: ${e instanceof Error ? e.message : String(e)}\n`);
+			} finally {
+				rmSync(out, { force: true });
+			}
+		});
+	}
+};
 
 // GitHub Pages serves a *user* site (<name>.github.io) from the root, but a
 // *project* site from /<repo>. The deploy workflow sets BASE_PATH for the latter.
@@ -10,6 +46,7 @@ const base = (process.env.BASE_PATH ?? '') as '' | `/${string}`;
 
 export default defineConfig({
 	plugins: [
+		cvPdfInDev,
 		sveltekit({
 			// Blog posts are .svx (markdown with Svelte in it), living in src/lib/posts.
 			extensions: ['.svelte', '.svx'],

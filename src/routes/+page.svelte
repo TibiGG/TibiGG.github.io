@@ -3,7 +3,7 @@
 	import { profile } from '$lib/data/profile';
 	import { publications } from '$lib/data/publications';
 	import { wins, writing } from '$lib/data/hackathons';
-	import { roles, education, skills } from '$lib/data/experience';
+	import { roles, education, skills, skillsDraft } from '$lib/data/experience';
 	import { posts } from '$lib/posts';
 	import { person } from '$lib/schema';
 	import Seo from '$lib/Seo.svelte';
@@ -132,19 +132,21 @@
 	</div>
 </section>
 
-<section>
-	<h2 class="centerline">Tools of the trade</h2>
-	<div class="skills">
-		{#each Object.entries(skills) as [level, list]}
-			<div>
-				<p class="label">{level}</p>
-				<div class="tags">
-					{#each list as s}<span class="tag">{s}</span>{/each}
+{#if !skillsDraft}
+	<section>
+		<h2 class="centerline">Tools of the trade</h2>
+		<div class="skills">
+			{#each Object.entries(skills) as [level, list]}
+				<div>
+					<p class="label">{level}</p>
+					<div class="tags">
+						{#each list as s}<span class="tag">{s}</span>{/each}
+					</div>
 				</div>
-			</div>
-		{/each}
-	</div>
-</section>
+			{/each}
+		</div>
+	</section>
+{/if}
 
 <section>
 	<h2 class="centerline">Things I wrote</h2>

@@ -30,17 +30,16 @@ jobs:
 
       - run: npm ci
 
+      # `npm run build` also prints build/cv.pdf from the page it just built, so
+      # the download can never fall behind the site. Runner images ship Chrome;
+      # if that ever stops being true the build fails rather than shipping a
+      # download that 404s.
       - name: Build
         run: npm run build
         env:
           # A user site (<name>.github.io) serves from the root, so BASE_PATH stays
           # empty. For a project repo, set it to: /${{ github.event.repository.name }}
           BASE_PATH: ''
-
-      # The downloadable CV is printed from the page that was just built, so it
-      # cannot fall behind the site. Runner images ship Chrome.
-      - name: Print the CV to PDF
-        run: npm run cv:pdf
 
       - uses: actions/configure-pages@v5
 

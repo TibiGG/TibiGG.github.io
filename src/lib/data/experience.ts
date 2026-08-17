@@ -109,8 +109,15 @@ export const education: Study[] = [
 	}
 ];
 
+// Held back from the whole site, the same way a drafted post is: the languages
+// you happen to know say less than the research, the teaching and the writing do,
+// and they were competing with them for a reader's attention. Nothing is deleted
+// — set this to false and the sections reappear on the home page and the CV,
+// including in the printed and downloadable PDF.
+export const skillsDraft = true;
+
 // Grouped as the CV groups them, so the ordering stays a deliberate choice.
 export const skills = {
-	Experienced: ['C', 'Python', 'Java', 'Clingo', 'ILASP', 'Scala', 'Git', 'C++', 'Bash'],
+	Experienced: ['C', 'Python', 'Java', 'Clingo', 'ILASP', 'Scala', 'Git', 'C++', 'Bash', 'Svelte'],
 	Intermediate: ['Swift', 'Haskell', 'JavaScript', 'SQL', 'LaTeX', 'C#', 'Go', 'Kotlin']
 };

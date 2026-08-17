@@ -1,62 +1,38 @@
-// Prints the built /cv/ page to build/cv.pdf with headless Chrome.
+// Prints the built /cv/ page to build/cv.pdf with headless Chrome. Run as part
+// of `npm run build`, so a build and its PDF can never come apart.
 //
-//   npm run build && npm run cv:pdf
-//
-// The CV page exists so the CV cannot drift out of date the way a checked-in
-// PDF does, so the PDF is generated from that page at build time and never
-// committed. The deploy workflow runs this between the build and the upload,
-// which means the downloadable file is always the page you can see.
+// The CV page exists so the CV cannot drift out of date the way a checked-in PDF
+// does, which is why this file is generated at build time and never committed.
 //
 // No server is involved: the site is fully static with relative asset paths, so
 // Chrome renders it straight off the filesystem.
 
-import { execFileSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { copyFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import { printToPdf } from './chrome.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
-const page = `file://${root}build/cv/index.html`;
+const page = `${root}build/cv/index.html`;
 const out = `${root}build/cv.pdf`;
 
-if (!existsSync(`${root}build/cv/index.html`)) {
+if (!existsSync(page)) {
 	console.error('No build/cv/index.html. Run `npm run build` first.');
 	process.exit(1);
 }
 
-// Whatever the platform calls it. CI runners have google-chrome on PATH.
-const candidates = [
-	process.env.CHROME_PATH,
-	'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-	'google-chrome',
-	'google-chrome-stable',
-	'chromium',
-	'chromium-browser'
-].filter(Boolean);
-
-let printed = false;
-for (const chrome of candidates) {
-	try {
-		execFileSync(
-			chrome,
-			[
-				'--headless',
-				'--disable-gpu',
-				'--no-sandbox',
-				'--no-pdf-header-footer',
-				`--print-to-pdf=${out}`,
-				page
-			],
-			{ stdio: 'ignore' }
-		);
-		printed = true;
-		console.log(`Printed ${out} with ${chrome}`);
-		break;
-	} catch {
-		// Try the next candidate.
-	}
+try {
+	const chrome = await printToPdf(`file://${page}`, out);
+	console.log(`Printed ${out} with ${chrome}`);
+} catch (e) {
+	console.error(e instanceof Error ? e.message : String(e));
+	process.exit(1);
 }
 
-if (!printed) {
-	console.error('No Chrome found. Set CHROME_PATH to a Chrome or Chromium binary.');
-	process.exit(1);
+// `vite preview` serves SvelteKit's own client output, not the adapter's build/
+// directory, so without this copy the download 404s in preview and looks broken
+// even though the deployed site is fine. Production serves build/.
+const previewDir = `${root}.svelte-kit/output/client`;
+if (existsSync(previewDir)) {
+	copyFileSync(out, `${previewDir}/cv.pdf`);
+	console.log('Copied it into .svelte-kit/output/client for `vite preview`');
 }

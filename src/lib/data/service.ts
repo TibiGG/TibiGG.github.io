@@ -46,7 +46,7 @@ const allPresentations: Presentation[] = [
 		// Someone else's paper, presented because you found it interesting. Worth
 		// distinguishing from your own work: it shows reading, not results.
 		title: 'Just-in-Time Reactive Synthesis (paper presentation)',
-		event: 'STAI CDT Paper Reading Group',
+		event: 'STAI CDT First Year Reading Group',
 		place: 'London',
 		date: '2023',
 		kind: 'talk'
@@ -106,6 +106,9 @@ export type Outreach = {
 	audience: string;
 	date: string; // 'YYYY', 'YYYY-MM' or 'YYYY-MM-DD', as with a presentation
 	kind?: 'talk' | 'workshop' | 'demo' | 'mentoring' | 'writing' | 'volunteering';
+	// The exhibition, festival or open day this was part of. Named events lead
+	// the line, because "an exhibition at King's" is weaker than its actual name.
+	event?: string;
 	place?: string;
 	// One or two sentences: what you did and why it mattered.
 	blurb?: string;
@@ -117,14 +120,16 @@ const allOutreach: Outreach[] = [
 	{
 		title: 'Human or machine? A live Turing test',
 		audience: 'General public',
-		// TODO: the year is enough, plus the exposition's actual name for `place`.
-		date: '2024',
+		// The exhibition ran 2 May – 30 June 2023. Narrow this to '2023-05' or a
+		// full date if you remember which day you were on the floor.
+		date: '2023',
 		kind: 'demo',
-		place: 'King’s College London',
+		event: 'Bringing the Human to the Artificial',
+		place: 'Bush House, King’s College London',
 		blurb: `Two visitors were handed a tablet each and had to work out, from the conversation
-			alone, whether they were talking to a language model or to the other visitor. A science
-			exposition demo that turns the Turing test into something you can lose.`,
-		draft: true
+			alone, whether they were talking to a language model or to the other visitor. A public
+			demo finding out whether the state-of-the-art LLMs could pass for a human.`,
+		url: 'https://www.kcl.ac.uk/ai/exhibition-2023'
 	}
 ];
 

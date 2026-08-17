@@ -1,7 +1,13 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { profile } from '$lib/data/profile';
-	import { academicRoles, industryRoles, education, skills } from '$lib/data/experience';
+	import {
+		academicRoles,
+		industryRoles,
+		education,
+		skills,
+		skillsDraft
+	} from '$lib/data/experience';
 	import { publications } from '$lib/data/publications';
 	import { cvCompetitions } from '$lib/data/hackathons';
 	import { presentations, peerReview, outreach } from '$lib/data/service';
@@ -37,6 +43,9 @@
 
 <div class="actions">
 	<button class="btn" onclick={() => window.print()}>Print / save as PDF</button>
+	<!-- /cv.pdf is printed from this page: at build time in production, on request
+	     by a dev-server middleware in development. Either way the file is real, so
+	     the button works everywhere. -->
 	{#if profile.cvPdf}
 		<a class="btn ghost" href="{base}{profile.cvPdf}" download>Download the PDF</a>
 	{/if}
@@ -148,7 +157,11 @@
 					<p class="when">{academicDate(o.date)}</p>
 					<div>
 						<h3>{o.title}</h3>
-						<p class="org">{o.audience}{#if o.place} · {o.place}{/if}</p>
+						<!-- A named exhibition leads; the audience only carries the line
+						     when there is no event to name. -->
+						<p class="org">
+							{[o.event ?? o.audience, o.place].filter(Boolean).join(' · ')}
+						</p>
 						{#if o.blurb}<p class="detail">{o.blurb}</p>{/if}
 					</div>
 				</div>
@@ -179,15 +192,17 @@
 		{/each}
 	</section>
 
-	<section>
-		<h2>Skills</h2>
-		{#each Object.entries(skills) as [level, list]}
-			<div class="entry">
-				<p class="when">{level}</p>
-				<div><p class="detail wide">{list.join(' · ')}</p></div>
-			</div>
-		{/each}
-	</section>
+	{#if !skillsDraft}
+		<section>
+			<h2>Skills</h2>
+			{#each Object.entries(skills) as [level, list]}
+				<div class="entry">
+					<p class="when">{level}</p>
+					<div><p class="detail wide">{list.join(' · ')}</p></div>
+				</div>
+			{/each}
+		</section>
+	{/if}
 </article>
 
 <style>

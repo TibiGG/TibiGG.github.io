@@ -9,9 +9,12 @@ export type Role = {
 	skills: string[];
 	// What the role actually involved. One sentence, present on the CV only.
 	detail?: string;
-	// Courses taught, for the teaching roles. Listing them is the whole point:
-	// "teaching assistant" says nothing, "taught Logic and Operating Systems"
-	// says what you know well enough to teach.
+	// The courses a teaching role covered. Listing them is the whole point:
+	// "teaching assistant" says nothing, the course names say which material you
+	// know well enough to support and assess others on.
+	//
+	// Deliberately not called "taught": neither of these roles involved lecturing,
+	// and the `detail` line above says what the work actually was.
 	courses?: string[];
 	link?: string;
 };
@@ -22,6 +25,11 @@ export type Study = {
 	start: string;
 	end: string;
 	thesis: string;
+	// Set this and the title becomes a link, on the home page and on the CV.
+	// Prefer an institutional URL (Imperial's Spiral) over a PDF in static/: it
+	// outlives the repo and keeps a large binary out of it. A thesis belongs here
+	// rather than in `publications`, which is for peer-reviewed work.
+	thesisUrl?: string;
 	inProgress?: boolean;
 };
 
@@ -33,7 +41,7 @@ export const roles: Role[] = [
 		end: '2025-10',
 		track: 'academic',
 		detail:
-			'Tutored and marked across the undergraduate curriculum, including assessed coursework counting towards students’ final marks.',
+			'Marked coursework across the undergraduate curriculum, including assessed individual coursework and group projects counting towards students’ final marks, and supported students through exercises during classes and tutorial sessions.',
 		// TODO: add the rest of the courses I marked as GTA.
 		courses: [
 			'Operating Systems',
@@ -44,7 +52,7 @@ export const roles: Role[] = [
 			'Logic',
 			'Discrete Mathematics'
 		],
-		skills: ['Tutoring', 'Assessed marking & feedback']
+		skills: ['Assessed marking & feedback', 'In-class support']
 	},
 	{
 		title: 'Undergraduate Teaching Assistant',
@@ -52,9 +60,16 @@ export const roles: Role[] = [
 		start: '2020-10',
 		end: '2022-07',
 		track: 'academic',
-		detail: 'Ran a small tutorial group for first-year foundational courses.',
-		courses: ['Discrete Mathematics', 'Logic', 'Reasoning about Programs', 'Graphs & Algorithms'],
-		skills: ['Tutoring', 'Marking & feedback']
+		detail:
+			'Taught weekly small-group tutorials for small groups of students, clarifying theoretical concepts and working through selected exercises, and marked their coursework. Also supported students in tutorial sessions on Programming.',
+		courses: [
+			'Discrete Mathematics',
+			'Logic',
+			'Reasoning about Programs',
+			'Graphs & Algorithms',
+			'Programming'
+		],
+		skills: ['Small-group teaching', 'Marking & feedback', 'In-class support']
 	},
 	{
 		title: 'Undergraduate Research Opportunity Programme',
@@ -62,8 +77,8 @@ export const roles: Role[] = [
 		start: '2019-06',
 		end: '2019-08',
 		track: 'academic',
-		detail: 'Applied StarGAN to emotional voice conversion, transferring speech between emotion domains.',
-		skills: ['StarGAN R&D', 'TensorFlow', 'Deep learning']
+		detail: 'Did research on the appliation of GANs (Generative Adversarial Networks) on speech transfer between emotion domains. Observed usefulness of StarGANs on multi-domain transfer.',
+		skills: ['GAN R&D', 'TensorFlow', 'Deep learning']
 	},
 	{
 		title: 'Member of Technical Staff Intern',
@@ -80,7 +95,7 @@ export const roles: Role[] = [
 		start: '2017-10',
 		end: '2018-06',
 		track: 'industry',
-		detail: 'Designed and delivered a game development course to secondary school students.',
+		detail: 'Designed and delivered a game development course to highschool students.',
 		skills: ['Lecturing', 'OOP', 'C++', 'Unreal Engine'],
 		link: 'https://www.linkedin.com/pulse/first-kinda-job-teaching-game-development-tiberiu-andrei-georgescu'
 	}
@@ -106,6 +121,11 @@ export const education: Study[] = [
 		end: '2022-07',
 		thesis:
 			'Towards Rebound-Focused Reinforcement Learning: Solving Deadlocks in Traffic Intersections'
+		// TODO: pending permission to publish. The PDF is sitting untracked at
+		// static/masters-thesis.pdf (gitignored) for local preview. To publish it:
+		// add `thesisUrl: '/masters-thesis.pdf'` above and un-ignore the file, or
+		// better, point thesisUrl at Imperial's Spiral and leave the binary out of
+		// the repo. Run `npm run dev` to see how it looks meanwhile.
 	}
 ];
 

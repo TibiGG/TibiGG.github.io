@@ -76,7 +76,12 @@
 				<div>
 					<h3>{e.degree}</h3>
 					<p class="org">{e.org}</p>
-					<p class="detail"><em>Thesis:</em> {e.thesis}</p>
+					<p class="detail">
+						<em>Thesis:</em>
+						{#if e.thesisUrl}<a href={e.thesisUrl} target="_blank" rel="noopener noreferrer"
+								>{e.thesis}</a
+							>{:else}{e.thesis}{/if}
+					</p>
 				</div>
 			</div>
 		{/each}
@@ -93,7 +98,10 @@
 						<p class="org">{r.org}</p>
 						{#if r.detail}<p class="detail">{r.detail}</p>{/if}
 						{#if r.courses?.length}
-							<p class="detail"><em>Courses:</em> {r.courses.join(' · ')}</p>
+							<p class="courses-label">Courses</p>
+							<ul class="courses">
+								{#each r.courses as c}<li>{c}</li>{/each}
+							</ul>
 						{/if}
 						<p class="detail">{r.skills.join(' · ')}</p>
 					</div>
@@ -297,6 +305,40 @@
 		color: var(--ink-soft);
 	}
 
+	/* The courses are the substance of a teaching role, so they get the ink and a
+	   line each rather than running together in grey. */
+	.courses-label {
+		margin: 0.35rem 0 0.15rem;
+		font-family: var(--mono);
+		font-size: 0.72rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--ink-soft);
+	}
+
+	.courses {
+		list-style: none;
+		margin: 0 0 0.4rem;
+		padding: 0;
+	}
+
+	.courses li {
+		font-size: 0.9rem;
+		color: var(--ink);
+		padding-left: 0.9rem;
+		position: relative;
+		line-height: 1.45;
+	}
+
+	/* An en dash, not an em dash: an em dash is a full em wide and closes the gap
+	   to the text entirely. */
+	.courses li::before {
+		content: '–';
+		position: absolute;
+		left: 0;
+		color: var(--ink-soft);
+	}
+
 	.detail.wide {
 		font-size: 0.88rem;
 	}
@@ -333,8 +375,13 @@
 		.contact,
 		.when,
 		.org,
-		.detail {
+		.detail,
+		.courses-label {
 			color: #333;
+		}
+
+		.courses li {
+			color: #000;
 		}
 
 		h2 {

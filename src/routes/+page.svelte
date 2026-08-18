@@ -33,6 +33,13 @@
 		return `${MONTHS[Number(m) - 1]} ${y}`;
 	}
 
+	// "Published" is meant literally: the paper under review is newer, but it is
+	// not out yet, and a front page should not blur that. Sorted rather than
+	// trusting the data file's order.
+	const latestPaper = publications
+		.filter((p) => p.status === 'published')
+		.sort((a, b) => b.year - a.year)[0];
+
 	const winCount = wins.length;
 	// Sort rather than trusting the data file's order. Entries that didn't place
 	// aren't in `wins`, so this is always a real one.
@@ -41,7 +48,7 @@
 
 <Seo
 	title="{profile.name}: research, hackathons, dice"
-	description="Portfolio of {profile.name}: PhD research on specification repair, {winCount} hackathon and competition wins, board games and Wing Chun."
+	description="Portfolio of {profile.name}: PhD researcher on Safe & Trusted AI, {winCount} hackathon and competition wins, board games and Wing Chun."
 	schema={person}
 />
 
@@ -77,6 +84,31 @@
 		<span>board games unplayed on the shelf</span>
 	</div>
 </section>
+
+{#if latestPaper}
+	<section>
+		<h2 class="centerline">Most recently published work</h2>
+		<article class="card feature">
+			<p class="eyebrow">{latestPaper.venue}</p>
+			<h3>{latestPaper.title}</h3>
+			<p class="authors">
+				<!-- The separator is an expression, not literal text: Svelte collapses
+				     the whitespace around a tag boundary and the comma loses its space. -->
+				{#each latestPaper.authors as a, i}<span class:me={a === profile.name}>{a}</span
+					>{#if i < latestPaper.authors.length - 1}{', '}{/if}{/each}
+			</p>
+			{#if latestPaper.abstract}
+				<p>{latestPaper.abstract}</p>
+			{/if}
+			<div class="tags">
+				{#each latestPaper.links ?? [] as l}
+					<a class="tag" href={l.url} target="_blank" rel="noopener noreferrer">{l.label}</a>
+				{/each}
+			</div>
+			<a class="more" href="{base}/research">All {publications.length} papers →</a>
+		</article>
+	</section>
+{/if}
 
 <section>
 	<h2 class="centerline">Most recent win</h2>
@@ -125,7 +157,11 @@
 				<p class="org">{e.org}</p>
 				<p class="thesis">
 					<span class="label">Thesis</span>
-					{e.thesis}{#if e.inProgress}<span class="tag wip">in progress</span>{/if}
+					{#if e.thesisUrl}<a
+							href={e.thesisUrl}
+							target="_blank"
+							rel="noopener noreferrer">{e.thesis}</a
+						>{:else}{e.thesis}{/if}{#if e.inProgress}<span class="tag wip">in progress</span>{/if}
 				</p>
 			</article>
 		{/each}
@@ -240,6 +276,27 @@
 	.feature p {
 		margin: 0 0 1rem;
 		color: var(--ink-soft);
+	}
+
+	/* Matches the research page: the author list is quiet, and my own name is the
+	   one thing in it a reader is scanning for. */
+	.authors {
+		margin: 0 0 0.6rem;
+		font-size: 0.92rem;
+	}
+
+	.authors .me {
+		color: var(--ink);
+		font-weight: 600;
+		text-decoration: underline;
+		text-decoration-color: var(--red);
+		text-underline-offset: 3px;
+	}
+
+	/* The link chips are the only interactive tags on the page. */
+	a.tag:hover {
+		border-color: var(--red);
+		color: var(--red);
 	}
 
 	.tags {

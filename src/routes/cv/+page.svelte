@@ -5,6 +5,8 @@
 		academicRoles,
 		industryRoles,
 		education,
+		funding,
+		supervision,
 		skills,
 		skillsDraft
 	} from '$lib/data/experience';
@@ -21,6 +23,12 @@
 		if (ym === 'present') return 'present';
 		const [y, m] = ym.split('-');
 		return `${MONTHS[Number(m) - 1]} ${y}`;
+	}
+
+	// Funding dates are as precise as the award actually is, so a bare year is a
+	// legitimate value here where `when` would read it as a missing month.
+	function awardDate(d: string) {
+		return d.includes('-') || d === 'present' ? when(d) : d;
 	}
 
 	// The CV is the same data as the rest of the site, laid out for one sheet of
@@ -82,6 +90,12 @@
 								>{e.thesis}</a
 							>{:else}{e.thesis}{/if}
 					</p>
+					{#if e.supervisors?.length}
+						<p class="detail">
+							<em>{e.supervisors.length === 1 ? 'Supervisor:' : 'Supervisors:'}</em>
+							{e.supervisors.join(', ')}
+						</p>
+					{/if}
 				</div>
 			</div>
 		{/each}
@@ -125,6 +139,48 @@
 			</div>
 		{/each}
 	</section>
+
+	{#if funding.length}
+		<section>
+			<h2>Funding</h2>
+			{#each funding as f}
+				<div class="entry">
+					<p class="when">{awardDate(f.start)} – {awardDate(f.end)}</p>
+					<div>
+						<h3>
+							{#if f.url}<a href={f.url} target="_blank" rel="noopener noreferrer">{f.title}</a
+								>{:else}{f.title}{/if}
+						</h3>
+						<p class="org">{f.funder}{#if f.reference}{' · '}{f.reference}{/if}</p>
+						<!-- Role and share on one line, because the ad asks for both and a
+						     panel reads them together: what you were on the project, and
+						     which part of the money was actually yours. -->
+						<p class="detail">
+							<em>Role:</em>
+							{f.role}{#if f.share}{' · '}<em>Awarded:</em> {f.share}{/if}
+						</p>
+					</div>
+				</div>
+			{/each}
+		</section>
+	{/if}
+
+	{#if supervision.length}
+		<section>
+			<h2>Supervision</h2>
+			{#each supervision as s}
+				<div class="entry">
+					<p class="when">{s.year}</p>
+					<div>
+						<h3>{s.project}</h3>
+						<p class="org">{s.level} · {s.org}</p>
+						{#if s.role}<p class="detail">{s.role}</p>{/if}
+						{#if s.outcome}<p class="detail">{s.outcome}</p>{/if}
+					</div>
+				</div>
+			{/each}
+		</section>
+	{/if}
 
 	{#if talks.length}
 		<section>

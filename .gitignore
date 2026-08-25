@@ -28,3 +28,8 @@ build/cv.pdf
 # Local preview of the MEng thesis, pending permission to publish it. Remove
 # this line (and the TODO in src/lib/data/experience.ts) once it is cleared.
 static/masters-thesis.pdf
+
+# Personal working notes on what the CV still needs. Kept out of the public
+# repo deliberately: it names an in-flight job application and open questions
+# for supervisors.
+CV-TODO.md

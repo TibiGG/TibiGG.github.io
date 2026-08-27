@@ -41,7 +41,10 @@ export const hackathons: Hackathon[] = [
 		stack: ['Agentic infrastructure', 'React', 'Python'],
 		links: [
 			{ label: 'Event', url: 'https://luma.com/yw0c3upd' },
-			{ label: 'Project', url: 'https://lnkd.in/p/e-Bt_Kef' }
+			{
+				label: 'Write-up',
+				url: 'https://www.linkedin.com/feed/update/urn:li:activity:7483231227450298369'
+			}
 		]
 	},
 	{

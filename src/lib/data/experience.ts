@@ -46,7 +46,7 @@ export const roles: Role[] = [
 		title: 'Graduate Teaching Assistant',
 		org: 'Imperial College London',
 		start: '2022-10',
-		end: '2025-10',
+		end: '2025-08',
 		track: 'academic',
 		detail:
 			'Marked coursework across the undergraduate curriculum, including assessed individual coursework and group projects counting towards students’ final marks, and supported students through exercises during classes and tutorial sessions.',
@@ -69,7 +69,7 @@ export const roles: Role[] = [
 		end: '2022-07',
 		track: 'academic',
 		detail:
-			'Taught weekly small-group tutorials for small groups of students, clarifying theoretical concepts and working through selected exercises, and marked their coursework. Also supported students in tutorial sessions on Programming.',
+			'Taught weekly tutorials to small groups, clarifying theoretical concepts and working through selected exercises, and marked their coursework. Also supported students in tutorial sessions on Programming.',
 		courses: [
 			'Discrete Mathematics',
 			'Logic',
@@ -85,7 +85,7 @@ export const roles: Role[] = [
 		start: '2019-06',
 		end: '2019-08',
 		track: 'academic',
-		detail: 'Did research on the appliation of GANs (Generative Adversarial Networks) on speech transfer between emotion domains. Observed usefulness of StarGANs on multi-domain transfer.',
+		detail: 'Researched the application of GANs (Generative Adversarial Networks) to speech transfer between emotion domains, finding StarGANs effective for multi-domain transfer.',
 		skills: ['GAN R&D', 'TensorFlow', 'Deep learning']
 	},
 	{
@@ -103,7 +103,7 @@ export const roles: Role[] = [
 		start: '2017-10',
 		end: '2018-06',
 		track: 'industry',
-		detail: 'Designed and delivered a game development course to highschool students.',
+		detail: 'Designed and delivered a game development course to high-school students.',
 		skills: ['Lecturing', 'OOP', 'C++', 'Unreal Engine'],
 		link: 'https://www.linkedin.com/pulse/first-kinda-job-teaching-game-development-tiberiu-andrei-georgescu'
 	}
@@ -129,8 +129,8 @@ export const education: Study[] = [
 		start: '2018-10',
 		end: '2022-07',
 		thesis:
-			'Towards Rebound-Focused Reinforcement Learning: Solving Deadlocks in Traffic Intersections'
-		// TODO: add `supervisors: [...]` — who supervised the MEng project.
+			'Towards Rebound-Focused Reinforcement Learning: Solving Deadlocks in Traffic Intersections',
+		supervisors: ['Dario Paccagnan', 'Panagiotis Angeloudis'],
 		// TODO: pending permission to publish. The PDF is sitting untracked at
 		// static/masters-thesis.pdf (gitignored) for local preview. To publish it:
 		// add `thesisUrl: '/masters-thesis.pdf'` above and un-ignore the file, or
@@ -163,10 +163,10 @@ export type Funding = {
 	draft?: boolean;
 };
 
-// TODO: nothing here is public knowledge, so nothing is filled in. The STAI CDT
-// studentship is drafted below from what the programme publishes about itself;
-// the grant reference and the amount have to come off your offer letter or the
-// CDT administrator, and the entry stays out of the build until they do.
+// The STAI CDT studentship is live on the CV. The grant reference and the cash
+// value of the award still have to come off the offer letter or the CDT
+// administrator; `share` answers the ad's actual question — whose money this is —
+// without inventing a figure, and gains the number when you have it.
 const allFunding: Funding[] = [
 	{
 		title: 'UKRI Centre for Doctoral Training in Safe and Trusted AI — PhD studentship',
@@ -174,15 +174,17 @@ const allFunding: Funding[] = [
 		start: '2022-10',
 		end: '2026',
 		role: 'studentship holder',
-		// TODO: the CDT's grant reference. On your offer letter, or ask the CDT
-		// administrator. Deliberately left blank rather than guessed.
-		reference: undefined,
-		// TODO: the value of the studentship awarded to you (fees + stipend over
-		// the four years). This is the personal figure the ad asks for; the CDT's
-		// overall centre grant is the consortium figure and is a different number.
-		share: '',
-		url: 'https://safeandtrustedai.org/',
-		draft: true
+		// The CDT's EPSRC grant, as STAI students cite it in acknowledgements.
+		// It is the centre's award rather than a reference issued to you, which
+		// is why `share` sits next to it saying which part of the money was
+		// yours. Your offer letter may also carry a student-specific number.
+		reference: 'EP/S023356/1',
+		// TODO: add the cash figure — fees + stipend over the four years — once you
+		// have it off the offer letter. That is the personal figure the ad asks
+		// for; the CDT's overall centre grant is the consortium figure and is a
+		// different number.
+		share: 'full fees and stipend, awarded to me personally',
+		url: 'https://safeandtrustedai.org/'
 	}
 ];
 

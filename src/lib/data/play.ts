@@ -6,7 +6,7 @@ import { snowboardSeasons, lifeShare } from '$lib/elapsed';
 export const boardGames = {
 	// Left empty it renders nothing at all, so there is no half-finished
 	// paragraph on the page while you think about it.
-	blurb: `The pill that cured my highschool video game addiction. Highly recommended activity for friend meetups, team building events, and even date nights! Here are some of my all time favourites:`,
+	blurb: `The pill that cured my high-school video game addiction. Highly recommended activity for friend meetups, team building events, and even date nights! Here are some of my all time favourites:`,
 	games: [
 		{
 			title: 'Arkham Horror: The Card Game',
@@ -107,7 +107,7 @@ export const wingChun = {
 	// Three principles, shown as cards.
 	principles: [
 		{
-			name: 'Centerline Theory',
+			name: 'Centreline Theory',
 			gloss: 'The shortest path between you and your opponent is a straight line between your centre and theirs, so whoever controls the centreline controls the game. Very similar to chess.'
 		},
 		{

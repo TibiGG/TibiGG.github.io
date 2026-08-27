@@ -27,7 +27,9 @@ export const profile = {
 		github: 'https://github.com/TibiIC',
 		githubOld: 'https://github.com/TibiGG',
 		linkedin: 'https://www.linkedin.com/in/tibigeo',
-		scholar: '' // add your Google Scholar URL when you have one
+		// The bare profile URL: the `pli` and `authuser` params on the link you
+		// copied are your own session's, not part of the profile's address.
+		scholar: 'https://scholar.google.com/citations?user=elQzWZ8AAAAJ'
 	}
 };
 
@@ -36,7 +38,7 @@ export const diceFacts = [
 	'Second place, Mega Lego Sumo, Robotex International, Tallinn, 2018.',
 	'Taught high schoolers to build games in Unreal Engine C++ before I could legally drink in the US.',
 	'Upstreamed patches to the Linux Kernel and QEMU during an internship at Nutanix.',
-	'Wing Chun runs on the centerline theory: the shortest path is a straight one.',
+	'Wing Chun runs on the centreline theory: the shortest path is a straight one.',
 	'Built a Raspberry Pi smart mirror in C, because a normal mirror was insufficient.',
 	'Fine-tuned GPT-3 to write animated children’s stories. It won "Most Stylish Hack".',
 	'I speak Romanian and English.',

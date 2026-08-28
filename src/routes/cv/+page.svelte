@@ -35,6 +35,11 @@
 	// paper, so it can never drift out of date the way a checked-in PDF does.
 	const papers = [...publications].sort((a, b) => b.year - a.year);
 
+	// 'https://github.com/TibiIC' -> 'github.com/TibiIC'. Printed on paper, so the
+	// scheme and any trailing slash are noise.
+	const short = (url: string) =>
+		url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+
 	const newestFirst = <T extends { date: string }>(xs: T[]) =>
 		[...xs].sort((a, b) => b.date.localeCompare(a.date));
 
@@ -70,9 +75,17 @@
 			<span>·</span>
 			<a href={profile.site}>{profile.site.replace('https://', '')}</a>
 			<span>·</span>
-			<a href={profile.links.github}>github.com/TibiIC</a>
+			<!-- Labels are derived from the URLs rather than typed out, so a changed
+			     handle can never leave the old one printed next to the new link. -->
+			<a href={profile.links.github}>{short(profile.links.github)}</a>
 			<span>·</span>
-			<a href={profile.links.linkedin}>linkedin.com/in/tibigeo</a>
+			<a href={profile.links.linkedin}>{short(profile.links.linkedin)}</a>
+			{#if profile.links.scholar}
+				<span>·</span>
+				<!-- An academic CV is read alongside a citation record; the panel will
+				     look for this whether or not it is printed. -->
+				<a href={profile.links.scholar}>Google Scholar</a>
+			{/if}
 		</p>
 	</header>
 

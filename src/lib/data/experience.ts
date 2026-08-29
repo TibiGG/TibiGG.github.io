@@ -94,8 +94,19 @@ export const roles: Role[] = [
 		start: '2021-06',
 		end: '2021-10',
 		track: 'industry',
-		detail: 'R&D on the Linux and QEMU layer of the hypervisor, written up as an internal report & presented company-wide.',
-		skills: ['Linux & QEMU R&D', 'C', 'Academic writing', 'Product development']
+		// TODO: the specifics are the whole value of this entry for a systems or
+		// verification post — what the patches actually did, and what the report
+		// concluded. Two clauses would make this the strongest line on the CV for
+		// that kind of role. Deliberately not guessed.
+		detail:
+			'Systems R&D in C on the Linux kernel and QEMU layers of the hypervisor, with patches upstreamed to both open-source projects. Written up as an internal report and presented company-wide.',
+		skills: [
+			'Hypervisor internals',
+			'Linux kernel & QEMU',
+			'C',
+			'Open-source contribution',
+			'Technical writing'
+		]
 	},
 	{
 		title: 'Teaching Unreal Engine game development',
@@ -249,6 +260,7 @@ export const skills = {
 		'Haskell',
 		'JavaScript',
 		'SQL',
+		'PyTorch',
 		'Svelte'
 	],
 	Workflow: ['Git', 'Bash', 'tmux', 'LaTeX']

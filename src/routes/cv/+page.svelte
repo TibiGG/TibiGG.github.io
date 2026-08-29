@@ -271,7 +271,9 @@
 
 	{#if !skillsDraft}
 		<section>
-			<h2>Skills</h2>
+			<!-- 'Methods' rather than 'Skills': the latter is an industry-CV word and
+			     invites a self-assessment reading. A panel scans for methods. -->
+			<h2>Methods &amp; tools</h2>
 			{#each Object.entries(skills) as [level, list]}
 				<div class="entry">
 					<p class="when">{level}</p>

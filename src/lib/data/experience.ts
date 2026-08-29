@@ -223,10 +223,33 @@ export const supervision = allSupervision.filter((s) => !s.draft);
 // and they were competing with them for a reader's attention. Nothing is deleted
 // — set this to false and the sections reappear on the home page and the CV,
 // including in the printed and downloadable PDF.
-export const skillsDraft = true;
+export const skillsDraft = false;
 
-// Grouped as the CV groups them, so the ordering stays a deliberate choice.
+// Grouped by what the tool is for, not by how good you claim to be at it.
+// Self-graded tiers were the previous shape and read badly: 'Experienced' is
+// what everyone writes and carries no weight, while 'Intermediate' is taken
+// literally, so the CV was volunteering limitations. Grouping by kind also puts
+// the rare items first — Clingo and ILASP are the two entries a panel cannot
+// assume, and they were previously buried mid-list between Java and Scala.
 export const skills = {
-	Experienced: ['C', 'Python', 'Java', 'Clingo', 'ILASP', 'Scala', 'Git', 'C++', 'Bash', 'Svelte'],
-	Intermediate: ['Swift', 'Haskell', 'JavaScript', 'SQL', 'LaTeX', 'C#', 'Go', 'Kotlin']
+	// The four a panel cannot assume, and the ones that name the method: two ILP
+	// learners, the ASP solver under them, and the GR(1) synthesiser the thesis
+	// is built on.
+	'Logic & solvers': ['ILASP', 'FastLAS', 'Clingo', 'Prolog', 'Spectra (GR(1))'],
+	// Svelte sits here rather than under Workflow: it is something you write code
+	// in, and unlike the tail that was cut, there is a live artefact behind it —
+	// this site. Go, Kotlin and Swift came off because exposure to a language is
+	// no longer evidence of much when picking one up costs a weekend.
+	'Languages & frameworks': [
+		'Python',
+		'C',
+		'C++',
+		'Java',
+		'Scala',
+		'Haskell',
+		'JavaScript',
+		'SQL',
+		'Svelte'
+	],
+	Workflow: ['Git', 'Bash', 'tmux', 'LaTeX']
 };

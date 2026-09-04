@@ -4,6 +4,13 @@
 		"giftAid": 18,
 		"donations": 8,
 		"target": 200,
-		"checked": "2026-09-04T15:16:43.602Z"
+		"checked": "2026-09-04T18:02:17.919Z"
+	},
+	"sands": {
+		"raised": 10,
+		"giftAid": 0,
+		"donations": null,
+		"target": 500,
+		"checked": "2026-09-04T18:02:18.243Z"
 	}
 }

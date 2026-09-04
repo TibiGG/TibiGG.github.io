@@ -15,6 +15,25 @@
 
 	const stamp = (iso: string) =>
 		new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+
+	// The month a challenge ran. 'YYYY-MM' rather than a date, because the feat
+	// was a month of daily reps and picking a day out of it would be a fiction.
+	const month = (ym: string) => {
+		const [y, m] = ym.split('-');
+		return new Date(Number(y), Number(m) - 1).toLocaleDateString('en-GB', {
+			month: 'long',
+			year: 'numeric'
+		});
+	};
+
+	// A target was reached on a specific day, and the year matters once a
+	// fundraiser is old enough to be worth dating at all.
+	const day = (iso: string) =>
+		new Date(iso).toLocaleDateString('en-GB', {
+			day: 'numeric',
+			month: 'short',
+			year: 'numeric'
+		});
 </script>
 
 <Seo
@@ -40,7 +59,7 @@
 </section>
 
 <section>
-	<h2 class="centerline">On the table</h2>
+	<h2 class="centerline">Board Games</h2>
 	{#if boardGames.blurb.trim()}
 		<p class="blurb">{boardGames.blurb}</p>
 	{/if}
@@ -48,21 +67,28 @@
 		{#each boardGames.games as g}
 			<article class="game card tilt">
 				<span class="weight {g.weight}">{g.weight}</span>
-				<h3>{g.title}</h3>
+				<h3>
+					{#if g.bgg}<a href={g.bgg} target="_blank" rel="noopener noreferrer">{g.title}</a
+						>{:else}{g.title}{/if}
+				</h3>
 				<p>{g.why}</p>
 			</article>
 		{/each}
 	</div>
+	{#if boardGames.footnote}
+		<p class="footnote">{boardGames.footnote}</p>
+	{/if}
 </section>
 
 <section>
-	<h2 class="centerline">Training, and what it was for</h2>
+	<h2 class="centerline">Physical Challenge Fundraisers</h2>
 	<p class="blurb">{training.blurb}</p>
 	<div class="fundraisers">
 		{#each training.fundraisers as f}
 			<article class="card fundraiser">
 				<p class="eyebrow">
-					{f.cause}
+					{#if f.charity}<a href={f.charity} target="_blank" rel="noopener noreferrer">{f.cause}</a
+						>{:else}{f.cause}{/if}
 					{#if f.ongoing}<span class="tag live">in progress</span>{/if}
 				</p>
 				<p class="amount">
@@ -80,8 +106,9 @@
 					<span style="width: {pct(f.raised, f.target)}%"></span>
 				</div>
 				<p class="feat">
-					{f.feat}
-					{#if f.checked}<span class="checked">· total checked {stamp(f.checked)}</span>{/if}
+					{f.feat}{#if f.when}, {month(f.when)}{/if}
+					{#if f.reached}<span class="checked">· target reached {day(f.reached)}</span>
+					{:else if f.checked}<span class="checked">· total checked {stamp(f.checked)}</span>{/if}
 				</p>
 				{#if f.url}
 					<a class="btn" href={f.url} target="_blank" rel="noopener noreferrer">
@@ -196,10 +223,24 @@
 		border-radius: inherit;
 	}
 
+	/* Quiet, and set off from the shelf by a short rule rather than a full-width
+	   one, so it reads as an aside to the cards above it and not a new section. */
+	.footnote {
+		margin: 2rem 0 0;
+		padding-top: 1rem;
+		border-top: 1px solid var(--rule);
+		max-width: 34rem;
+		font-size: 0.85rem;
+		color: var(--ink-soft);
+	}
+
 	.checked {
 		font-family: var(--mono);
 		font-size: 0.75rem;
 		opacity: 0.75;
+		/* Keeps the separator with the stamp it introduces, so a wrap never leaves
+		   a lone '·' at the end of a line. */
+		white-space: nowrap;
 	}
 
 	.amount-note {

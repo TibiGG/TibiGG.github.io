@@ -15,7 +15,7 @@
 
 <h1 class="centerline">Writing</h1>
 <p class="lede">
-	I sometimes like to share my thoughts on things, not necessarily research related. I used to like LinkedIn as a blog, but no one really reads there anymore. I have a personal blog, but my language there is less professional. You should find a (reasonably) curated list of articles below.
+	I sometimes like to share my thoughts on things, not necessarily directly connected to my research. I used to like LinkedIn as a blog, but no one really reads there anymore. You should find a (reasonably) curated list of articles below.
 </p>
 
 {#if posts.length}
@@ -34,7 +34,7 @@
 		{/each}
 	</ul>
 {:else}
-	<p class="empty">Thinking of turning this page into a blog, but nothing's published here yet. I'll write good in my own time.</p>
+	<p class="lede">Thinking of turning this page into a blog, but nothing's published here yet. I'll write something good in my own time.</p>
 {/if}
 
 <h2 class="centerline elsewhere">Elsewhere</h2>

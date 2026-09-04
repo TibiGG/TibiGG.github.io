@@ -40,6 +40,20 @@
 	const short = (url: string) =>
 		url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
 
+	// A thesis title is a title and a subtitle joined by a colon, and the two read
+	// as separate thoughts. Splitting them lets the line break land where the
+	// sense already breaks, instead of wherever the column happens to run out.
+	const titleParts = (t: string) => {
+		const i = t.indexOf(': ');
+		return i === -1 ? [t] : [t.slice(0, i + 1), t.slice(i + 2)];
+	};
+
+	// Papers link to their preprint where one exists, so the title itself is the
+	// link rather than a trailing 'arXiv' tag. arXiv first: it is the copy that
+	// stays readable without a subscription.
+	const paperUrl = (p: (typeof papers)[number]) =>
+		p.links?.find((l) => l.label === 'arXiv')?.url ?? p.links?.[0]?.url;
+
 	const newestFirst = <T extends { date: string }>(xs: T[]) =>
 		[...xs].sort((a, b) => b.date.localeCompare(a.date));
 
@@ -97,11 +111,13 @@
 				<div>
 					<h3>{e.degree}</h3>
 					<p class="org">{e.org}</p>
-					<p class="detail">
+					<p class="detail thesis">
 						<em>Thesis:</em>
-						{#if e.thesisUrl}<a href={e.thesisUrl} target="_blank" rel="noopener noreferrer"
-								>{e.thesis}</a
-							>{:else}{e.thesis}{/if}
+						<span
+							>{#if e.thesisUrl}<a href={e.thesisUrl} target="_blank" rel="noopener noreferrer"
+									>{#each titleParts(e.thesis) as part, i}{#if i}<br />{/if}{part}{/each}</a
+								>{:else}{#each titleParts(e.thesis) as part, i}{#if i}<br />{/if}{part}{/each}{/if}</span
+						>
 					</p>
 					{#if e.supervisors?.length}
 						<p class="detail">
@@ -143,7 +159,11 @@
 			<div class="entry">
 				<p class="when">{p.year}</p>
 				<div>
-					<h3>{p.title}</h3>
+					<h3>
+						{#if paperUrl(p)}<a href={paperUrl(p)} target="_blank" rel="noopener noreferrer"
+								>{p.title}</a
+							>{:else}{p.title}{/if}
+					</h3>
 					<p class="org">{p.authors.join(', ')}</p>
 					<p class="detail">
 						{p.venue}{#if p.status !== 'published'}{' · '}<em>{p.status}</em>{/if}
@@ -374,6 +394,17 @@
 		margin: 0;
 		font-size: 0.85rem;
 		color: var(--ink-soft);
+	}
+
+	/* Two columns rather than an inline label, so the second line of a long title
+	   hangs under the first instead of restarting at the margin. The underline
+	   then stacks into one block and reads as a single link, which is the whole
+	   point — an inline label leaves the wrapped tail underlined out on its own. */
+	.detail.thesis {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 0 0.3em;
+		align-items: baseline;
 	}
 
 	/* The courses are the substance of a teaching role, so they get the ink and a

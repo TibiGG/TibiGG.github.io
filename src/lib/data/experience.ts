@@ -98,8 +98,12 @@ export const roles: Role[] = [
 		// verification post — what the patches actually did, and what the report
 		// concluded. Two clauses would make this the strongest line on the CV for
 		// that kind of role. Deliberately not guessed.
+		// Precise about what went upstream: a QEMU patch was accepted; the kernel
+		// change was submitted and turned down as too narrow for the wider user
+		// base, and lives in Nutanix's tree. 'Patches upstreamed to both' was
+		// wrong and is the kind of claim a systems reviewer would check.
 		detail:
-			'Systems R&D in C on the Linux kernel and QEMU layers of the hypervisor, with patches upstreamed to both open-source projects. Written up as an internal report and presented company-wide.',
+			'Systems R&D in C on the Linux kernel and QEMU layers of the hypervisor. Upstreamed a patch to QEMU; the kernel work is maintained in Nutanix’s own tree. Written up as an internal report and presented company-wide.',
 		skills: [
 			'Hypervisor internals',
 			'Linux kernel & QEMU',
@@ -110,7 +114,8 @@ export const roles: Role[] = [
 	},
 	{
 		title: 'Teaching Unreal Engine game development',
-		org: 'High school',
+		// The school's own name, kept exactly as it styles itself.
+		org: 'International Computer High School of Constanta',
 		start: '2017-10',
 		end: '2018-06',
 		track: 'industry',
@@ -142,11 +147,10 @@ export const education: Study[] = [
 		thesis:
 			'Towards Rebound-Focused Reinforcement Learning: Solving Deadlocks in Traffic Intersections',
 		supervisors: ['Dario Paccagnan', 'Panagiotis Angeloudis'],
-		// TODO: pending permission to publish. The PDF is sitting untracked at
-		// static/masters-thesis.pdf (gitignored) for local preview. To publish it:
-		// add `thesisUrl: '/masters-thesis.pdf'` above and un-ignore the file, or
-		// better, point thesisUrl at Imperial's Spiral and leave the binary out of
-		// the repo. Run `npm run dev` to see how it looks meanwhile.
+		// Published with permission: the copyright is mine under Imperial's
+		// guidelines. Served from static/, which is why the 1.5 MB PDF is now
+		// tracked in git rather than ignored.
+		thesisUrl: '/masters-thesis.pdf'
 	}
 ];
 

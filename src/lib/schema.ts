@@ -15,7 +15,7 @@ export const person = {
 	jobTitle: 'PhD researcher',
 	description: profile.blurb.replace(/\s+/g, ' ').trim(),
 	address: { '@type': 'PostalAddress', addressLocality: 'London', addressCountry: 'GB' },
-	affiliation: { '@type': 'CollegeOrUniversity', name: 'Imperial College London' },
+	affiliation: { '@type': 'CollegeOrUniversity', name: profile.affiliation },
 	knowsAbout: [
 		'Formal specification',
 		'GR(1) synthesis',

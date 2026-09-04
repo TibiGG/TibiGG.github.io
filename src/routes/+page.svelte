@@ -54,8 +54,14 @@
 
 <section class="hero">
 	<div>
-		<p class="eyebrow">{profile.location}</p>
+		<p class="eyebrow">{profile.affiliation}</p>
 		<h1>{profile.name}</h1>
+		<p class="title">{profile.title}</p>
+		<p class="credentials">
+			{#each profile.credentials as c, i}{#if i}<span class="pipe">|</span
+				>{/if}{#if c.url}<a href={c.url} target="_blank" rel="noopener noreferrer">{c.label}</a
+				>{:else}{c.label}{/if}{/each}
+		</p>
 		<p class="roles">
 			{#each profile.roles as role, i}
 				<span>{role}</span>{#if i < profile.roles.length - 1}<span class="sep">·</span>{/if}
@@ -210,7 +216,35 @@
 
 	h1 {
 		font-size: clamp(2.4rem, 7vw, 4.2rem);
-		margin: 0.4rem 0 0.6rem;
+		margin: 0.4rem 0 0.3rem;
+	}
+
+	/* Reads as a subtitle to the name, not as a competing heading: full ink and
+	   display face so it carries, but well short of h1, and set in the neutral
+	   colour so the teal keyword line below stays the accent. */
+	.title {
+		font-family: var(--display);
+		font-weight: 600;
+		font-size: clamp(1.2rem, 2.6vw, 1.6rem);
+		color: var(--ink);
+		margin: 0 0 0.35rem;
+		line-height: 1.2;
+	}
+
+	/* Standing and membership, a step quieter than the title above it but still in
+	   full ink — these are credentials a reader weighs, not decoration. */
+	.credentials {
+		font-family: var(--display);
+		font-weight: 500;
+		font-size: 1rem;
+		color: var(--ink);
+		margin: 0 0 0.9rem;
+	}
+
+	.pipe {
+		opacity: 0.35;
+		margin: 0 0.6rem;
+		color: var(--ink-soft);
 	}
 
 	.roles {

@@ -47,7 +47,7 @@
 </script>
 
 <Seo
-	title="{profile.name}: research, hackathons, dice"
+	title="{profile.name}: research, hackathons, board games"
 	description="Portfolio of {profile.name}: PhD researcher on Safe & Trusted AI, {winCount} hackathon and competition wins, board games and Wing Chun."
 	schema={person}
 />

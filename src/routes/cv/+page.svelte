@@ -4,6 +4,7 @@
 	import {
 		academicRoles,
 		industryRoles,
+		enterpriseRoles,
 		education,
 		funding,
 		supervision,
@@ -130,7 +131,7 @@
 		{/each}
 	</section>
 
-	{#each [{ heading: 'Academic experience', list: academicRoles }, { heading: 'Industry experience', list: industryRoles }] as group}
+	{#each [{ heading: 'Academic experience', list: academicRoles }, { heading: 'Enterprise and entrepreneurship', list: enterpriseRoles }, { heading: 'Industry experience', list: industryRoles }].filter((g) => g.list.length) as group}
 		<section>
 			<h2>{group.heading}</h2>
 			{#each group.list as r}

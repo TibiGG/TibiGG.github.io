@@ -9,9 +9,12 @@ export type Role = {
 	org: string;
 	start: string; // YYYY-MM
 	end: string; // YYYY-MM, or 'present'
-	// Which half of the CV's experience section this belongs under. Research and
-	// teaching read as one career; a company internship reads as another.
-	track: 'academic' | 'industry';
+	// Which part of the CV's experience section this belongs under. Research and
+	// teaching read as one career; a company internship reads as another. The
+	// third is neither: a competitive enterprise or commercialisation programme
+	// is training you were selected for, not a job you were paid to do, and
+	// filing it under industry claims employment that never happened.
+	track: 'academic' | 'industry' | 'enterprise';
 	skills: string[];
 	// What the role actually involved. One sentence, present on the CV only.
 	detail?: string;
@@ -89,6 +92,33 @@ export const roles: Role[] = [
 		skills: ['GAN R&D', 'TensorFlow', 'Deep learning']
 	},
 	{
+		title: 'Venture Scientist',
+		org: 'Conception X',
+		start: '2023-03',
+		end: '2024-02',
+		track: 'enterprise',
+		// The programme, not the venture. Conception X is a not-for-profit that
+		// runs Europe's largest cross-university deeptech venture programme for
+		// PhD students: nine months, part-time alongside the doctorate, no fees
+		// and no equity taken. 'Venture Scientist' is its own term for a
+		// participant, which is why the title reads oddly on its own and the
+		// detail line has to carry it. LinkedIn files it as an apprenticeship;
+		// that is LinkedIn's taxonomy, not the programme's, and is not repeated
+		// here.
+		//
+		// TODO: what you actually built. This entry currently says you were
+		// selected and what the programme is, which is a line about admission
+		// rather than work — the same gap the Nutanix entry had before its
+		// specifics went in. Name the venture, say what the idea was and how far
+		// it got (customer interviews, a prototype, a pitch, incorporation, or a
+		// decision not to proceed — all of those are real outcomes and the last
+		// one is not a failure). Deliberately not guessed.
+		detail:
+			'Selected for Cohort 6 of Conception X, a nine-month deeptech venture programme run alongside the PhD, training STEM doctoral researchers to translate their research into a startup with mentoring from founders, investors and industry.',
+		skills: ['Research commercialisation', 'Venture building', 'Pitching'],
+		link: 'https://www.conceptionx.org/'
+	},
+	{
 		title: 'Member of Technical Staff Intern',
 		org: 'Nutanix',
 		start: '2021-06',
@@ -125,9 +155,11 @@ export const roles: Role[] = [
 	}
 ];
 
-// The CV splits these; the rest of the site treats `roles` as one list.
+// The CV splits these; the rest of the site treats `roles` as one list. A group
+// with nothing in it renders no heading, the same way Funding and Supervision do.
 export const academicRoles = roles.filter((r) => r.track === 'academic');
 export const industryRoles = roles.filter((r) => r.track === 'industry');
+export const enterpriseRoles = roles.filter((r) => r.track === 'enterprise');
 
 export const education: Study[] = [
 	{

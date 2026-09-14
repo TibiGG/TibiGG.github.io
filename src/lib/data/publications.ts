@@ -32,10 +32,15 @@ export const thesis = {
 // records themselves, not inferred.
 export const publications: Publication[] = [
 	{
-		title: 'Learning to Adapt GR(1) Specifications',
+		// Title read off the arXiv record, which is the citable version and differs
+		// from the working title this entry used to carry.
+		title: 'Learning to adapt GR(1) specifications through degradation',
 		authors: ['Tiberiu-Andrei Georgescu', 'Dalal Alrajeh', 'Sebastian Uchitel'],
 		venue: 'ACM Transactions on Software Engineering and Methodology (TOSEM)',
 		year: 2026,
+		// Still 'under review': the preprint makes the paper readable, it does not
+		// make it published. The CV prints the status next to the venue, and a
+		// panel can now follow the title to the full text either way.
 		status: 'under review',
 		kind: 'article',
 		abstract: `Assume-guarantee specifications for reactive systems rely on the correctness of
@@ -43,7 +48,7 @@ export const publications: Publication[] = [
 			silently with them. This work inductively learns the environment's real behaviour from
 			observations, then adapts the guarantees to restore correctness via an oracle-guided
 			inductive synthesis loop.`,
-		links: []
+		links: [{ label: 'arXiv', url: 'https://arxiv.org/abs/2609.12231' }]
 	},
 	{
 		title:

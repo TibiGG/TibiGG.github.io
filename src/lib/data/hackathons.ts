@@ -26,6 +26,23 @@ export type Hackathon = {
 // The card grows a "Read the write-up" button automatically.
 export const hackathons: Hackathon[] = [
 	{
+		event: 'Adeline Sprint Sessions · Health x AI Hackathon',
+		date: '2026-09-18',
+		project: 'Charge',
+		tagline:
+			'Preventive health as managing exercise batteries (strength, cardio, HIIT, balance and flexibility), with personalised exercise recommendations to charge the emptiest one. Used probabilistic logic recommendation backend.',
+		challenge:
+			'Bupa Challenge track: Connected Care — from treating illness to preventing it.',
+		cvSummary:
+			'Preventive-health recommendation system that turns wearable and health-report data into daily exercise, using probabilistic-logic rules drawn from clinical guidelines.',
+		// No placement was announced for the challenge track, so there is no prize
+		// line. It earns its CV entry the same way ReBind does — on the build.
+		won: false,
+		onCv: true,
+		stack: ['ProbLog', 'Python', 'FastAPI', 'SvelteKit', 'Google Cloud Run'],
+		links: [{ label: 'Event', url: 'https://www.adeline.co.uk/hackathon' }]
+	},
+	{
 		event: 'Building an AI Scientist Hackathon',
 		date: '2026-07-03',
 		project: 'ReBind: The Personal AI Clinician',

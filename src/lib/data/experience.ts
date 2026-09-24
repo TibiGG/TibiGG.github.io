@@ -167,7 +167,7 @@ export const education: Study[] = [
 		org: 'Imperial College London',
 		start: '2022-10',
 		end: 'present',
-		thesis: 'Inductive Adaptation of GR(1) Specifications to Environment Changes',
+		thesis: 'Assumption-Driven Adaptation of Specifications for Reactive Synthesis',
 		supervisors: thesis.supervisors,
 		inProgress: true
 	},

@@ -32,8 +32,8 @@ export const profile = {
 	// use, not the boundary of it, and it is an opaque acronym to everyone who is
 	// not already in reactive synthesis — so the ribbon names the field and the
 	// papers name the fragment. 'Specification Adaptation' follows the same rule:
-	// it is the thesis's own word ('Inductive Adaptation of GR(1) Specifications
-	// to Environment Changes') and the broader one, since repair — the NeSy and
+	// it is the thesis's own word ('Assumption-Driven Adaptation of Specifications
+	// for Reactive Synthesis') and the broader one, since repair — the NeSy and
 	// Prague word — is the special case where something is already broken.
 	//
 	// 'Inductive Logic Programming' stays unabbreviated: ILP reads as noise to

@@ -15,7 +15,7 @@ export type Publication = {
 
 // The PhD, described for people who won't read the papers.
 export const thesis = {
-	title: 'Inductive Adaptation of GR(1) Specifications to Environment Changes',
+	title: 'Assumption-Driven Adaptation of Specifications for Reactive Synthesis',
 	institution: 'Imperial College London',
 	programme: 'PhD, Safe and Trusted AI',
 	started: 2022,

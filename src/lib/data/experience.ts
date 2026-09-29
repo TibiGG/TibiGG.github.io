@@ -49,7 +49,7 @@ export const roles: Role[] = [
 		title: 'Graduate Teaching Assistant',
 		org: 'Imperial College London',
 		start: '2022-10',
-		end: '2025-08',
+		end: 'present',
 		track: 'academic',
 		detail:
 			'Marked coursework across the undergraduate curriculum, including assessed individual coursework and group projects counting towards students’ final marks, and supported students through exercises during classes and tutorial sessions.',

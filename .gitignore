@@ -29,3 +29,7 @@ build/cv.pdf
 # repo deliberately: it names an in-flight job application and open questions
 # for supervisors.
 CV-TODO.md
+
+# Application answers, kept for reuse across applications. Private: they name
+# collaborators, funding applications and in-flight plans.
+/applications/

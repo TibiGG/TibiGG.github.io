@@ -72,13 +72,16 @@ export type CvVariant = {
 	skills?: Record<string, string[]>;
 };
 
-// The public CV, section for section as it was before variants existed.
+// The public CV: every section in full, with the same bullets, grades, team
+// sizes and team projects as the tailored cuts, so the site shows the current
+// CV rather than an older one.
 export const publicCv: CvVariant = {
 	main: [
 		'education',
 		'academic',
 		'enterprise',
 		'industry',
+		'projects',
 		'publications',
 		'funding',
 		'supervision',
@@ -87,5 +90,9 @@ export const publicCv: CvVariant = {
 		'engagement',
 		'competitions',
 		'skills'
-	]
+	],
+	bullets: true,
+	teamwork: true,
+	grades: true,
+	linkCompetitions: true
 };

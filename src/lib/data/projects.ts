@@ -9,7 +9,7 @@
 // lines) and your LinkedIn write-ups on ARM11 and WACC. Where those disagree
 // with memory, they win.
 //
-// Not on the public CV. Only the variants in applications/cv/ render these.
+// On the public CV and in the variants; `draft: true` keeps an entry off both.
 
 export type TeamProject = {
 	title: string;

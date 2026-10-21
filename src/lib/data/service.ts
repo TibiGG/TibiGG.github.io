@@ -156,6 +156,15 @@ const allPeerReview: Review[] = [
 	},
 	{ venue: 'IROS', role: 'reviewer', years: [2022], type: 'conference' },
 	{
+		// Under Dalal, who is the reviewer of record; you are doing the review
+		// itself. Listed once the invitation was accepted, in Oct 2026.
+		venue: 'Software and Systems Modeling (SoSyM)',
+		role: 'sub-reviewer',
+		years: [2026],
+		type: 'journal',
+		url: 'https://link.springer.com/journal/10270'
+	},
+	{
 		// The one sub-review, passed down by your supervisor. Everything about it
 		// is still to be recovered except that it happened.
 		venue: '', // TODO: which venue, and which year

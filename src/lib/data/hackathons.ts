@@ -20,6 +20,10 @@ export type Hackathon = {
 	// Set true to carry a strong entry that didn't place, false for anything
 	// folded into the grouped robotics line below.
 	onCv?: boolean;
+	// Team size, and whether you coordinated it. From the old LaTeX CV, which
+	// says 'coordinated' in so many words where it applies. Only the CV variants
+	// print this; the public CV and /hackathons are unchanged.
+	team?: { size: number; lead?: boolean };
 };
 
 // Seeded from your CV. Add a `blogPost` URL to any of these as you write them up.
@@ -40,7 +44,10 @@ export const hackathons: Hackathon[] = [
 		won: false,
 		onCv: true,
 		stack: ['ProbLog', 'Python', 'FastAPI', 'SvelteKit', 'Google Cloud Run'],
-		links: [{ label: 'Event', url: 'https://www.adeline.co.uk/hackathon' }]
+		links: [
+			{ label: 'Demo', url: 'https://charge-bupa.vercel.app' },
+			{ label: 'Event', url: 'https://www.adeline.co.uk/hackathon' }
+		]
 	},
 	{
 		event: 'Building an AI Scientist Hackathon',
@@ -113,6 +120,7 @@ export const hackathons: Hackathon[] = [
 		tagline: 'A smart ID card that authenticates you without disclosing personal data.',
 		challenge: 'Learn blockchain and build something on it in 24 hours.',
 		stack: ['Java', 'Node', 'Blockchain', 'Sovrin'],
+		team: { size: 3, lead: true },
 		links: [{ label: 'GitLab', url: 'https://gitlab.doc.ic.ac.uk/blockchain-hack18/unid' }],
 		blogPost:
 			'https://www.linkedin.com/pulse/chainhack24-my-first-hackathon-blockchain-tiberiu-andrei-georgescu/'
@@ -125,6 +133,7 @@ export const hackathons: Hackathon[] = [
 		tagline: 'A self-sustainable community of energy-efficient houses.',
 		challenge: 'Build an application supporting UN Sustainable Development Goals 7 and 11.',
 		stack: ['PWA', 'JavaScript', 'Python', 'Java'],
+		team: { size: 4, lead: true },
 		links: [{ label: 'GitHub', url: 'https://github.com/TibiGG/EnerCom' }]
 	},
 	{
@@ -192,6 +201,8 @@ export type CvCompetition = {
 	challenge?: string; // what the organisers asked for, labelled as such
 	summary: string;
 	stack: string[];
+	team?: { size: number; lead?: boolean };
+	url?: string; // the entry's first link: the demo where there is one
 };
 
 // The CV's version of this list, which is a different document with a different
@@ -220,7 +231,9 @@ export const cvCompetitions: CvCompetition[] = [
 			event: h.event,
 			challenge: h.challenge,
 			summary: h.cvSummary ?? h.tagline,
-			stack: h.stack
+			stack: h.stack,
+			team: h.team,
+			url: h.links[0]?.url
 		})),
 	robotics
 ];

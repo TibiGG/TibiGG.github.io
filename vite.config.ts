@@ -45,6 +45,9 @@ const cvPdfInDev: Plugin = {
 const base = (process.env.BASE_PATH ?? '') as '' | `/${string}`;
 
 export default defineConfig({
+	// The private CV variants live in applications/cv/, outside src/, and the
+	// browser has to fetch them to hydrate /cv/<name>/ under `vite dev`.
+	server: { fs: { allow: ['applications'] } },
 	plugins: [
 		cvPdfInDev,
 		sveltekit({

@@ -18,6 +18,10 @@ export type Role = {
 	skills: string[];
 	// What the role actually involved. One sentence, present on the CV only.
 	detail?: string;
+	// The CV variants print these instead of `detail`, following Imperial
+	// Careers' pattern: the skill first, then what you did that shows it.
+	// 'Skill: evidence' — the part before the first colon prints in bold.
+	bullets?: string[];
 	// The courses a teaching role covered. Listing them is the whole point:
 	// "teaching assistant" says nothing, the course names say which material you
 	// know well enough to support and assess others on.
@@ -41,6 +45,10 @@ export type Study = {
 	thesisUrl?: string;
 	// Who supervised it. Shown under the thesis line on the CV.
 	supervisors?: string[];
+	// Marks and distinctions. Only the CV variants that ask for them print this.
+	results?: string;
+	// As on `Role`: skill first, then the evidence. Variants only.
+	bullets?: string[];
 	inProgress?: boolean;
 };
 
@@ -63,6 +71,13 @@ export const roles: Role[] = [
 			'Logic',
 			'Discrete Mathematics'
 		],
+		bullets: [
+			'Explaining clearly: four years of making new material make sense to students meeting it for the first time.',
+			'Guiding through questions: helping students reason their way to the right answer instead of handing it over.',
+			'Learning fast: supported courses outside my own degree, learning each well enough to help others learn it.',
+			'Broad fundamentals: Operating Systems, Introduction to Machine Learning, Programming, Software Systems Engineering, Knowledge Representation, Logic, Discrete Mathematics.',
+			'Fair assessment: marked coursework and group projects that count towards students’ final degrees.',
+		],
 		skills: ['Assessed marking & feedback', 'In-class support']
 	},
 	{
@@ -80,6 +95,10 @@ export const roles: Role[] = [
 			'Graphs & Algorithms',
 			'Programming'
 		],
+		bullets: [
+			'Organisation: ran weekly small-group tutorials for first-year students for two years, across five courses.',
+			'Feedback: marked tutorial coursework and gave each student feedback to improve on.',
+		],
 		skills: ['Small-group teaching', 'Marking & feedback', 'In-class support']
 	},
 	{
@@ -89,6 +108,10 @@ export const roles: Role[] = [
 		end: '2019-08',
 		track: 'academic',
 		detail: 'Researched the application of GANs (Generative Adversarial Networks) to speech transfer between emotion domains, finding StarGANs effective for multi-domain transfer.',
+		bullets: [
+			'Learning on the job: picked up deep learning and TensorFlow over one summer.',
+			'Research: adapted an open-source GAN (StarGAN) to transfer emotion between speech recordings.',
+		],
 		skills: ['GAN R&D', 'TensorFlow', 'Deep learning']
 	},
 	{
@@ -115,6 +138,10 @@ export const roles: Role[] = [
 		// one is not a failure). Deliberately not guessed.
 		detail:
 			'Selected for Cohort 6 of Conception X, a nine-month deeptech venture programme run alongside the PhD, training STEM doctoral researchers to translate their research into a startup with mentoring from founders, investors and industry.',
+		bullets: [
+			'Commercial thinking: learned from founders, investors and industry how to turn research into a startup.',
+			'Self-motivation: ran the nine-month programme alongside the PhD.',
+		],
 		skills: ['Research commercialisation', 'Venture building', 'Pitching'],
 		link: 'https://www.conceptionx.org/'
 	},
@@ -134,6 +161,12 @@ export const roles: Role[] = [
 		// wrong and is the kind of claim a systems reviewer would check.
 		detail:
 			'Systems R&D in C on the Linux kernel and QEMU layers of the hypervisor. Upstreamed a patch to QEMU; the kernel work is maintained in Nutanix’s own tree. Written up as an internal report and presented company-wide.',
+		bullets: [
+			'Systems engineering: R&D in C on the Linux kernel and QEMU layers of the hypervisor, improving live migration under memory overcommit.',
+			'Open source: worked with the Linux and QEMU maintainers; patch accepted into upstream QEMU, kernel change maintained in Nutanix’s own tree.',
+			'Unfamiliar codebases: worked in large legacy code and built tooling around it.',
+			'Communication: wrote up the work as an internal report and presented it company-wide.',
+		],
 		skills: [
 			'Hypervisor internals',
 			'Linux kernel & QEMU',
@@ -150,6 +183,9 @@ export const roles: Role[] = [
 		end: '2018-06',
 		track: 'industry',
 		detail: 'Designed and delivered a game development course to high-school students.',
+		bullets: [
+			'Course design: designed and taught an extracurricular game development course in C++ and Unreal Engine, before starting university.',
+		],
 		skills: ['Lecturing', 'OOP', 'C++', 'Unreal Engine'],
 		link: 'https://www.linkedin.com/pulse/first-kinda-job-teaching-game-development-tiberiu-andrei-georgescu'
 	}
@@ -169,6 +205,11 @@ export const education: Study[] = [
 		end: 'present',
 		thesis: 'Assumption-Driven Adaptation of Specifications for Reactive Synthesis',
 		supervisors: thesis.supervisors,
+		bullets: [
+			'Independent research: built a pipeline that adapts formal specifications at runtime, developed its theoretical foundations and released it open source.',
+			'Collaboration: applied my methods to a safe reinforcement learning project with another research group, published at NeSy 2026.',
+			'Planning: organised the work around milestones, with thesis submission planned for Dec 2026.',
+		],
 		inProgress: true
 	},
 	{
@@ -179,6 +220,8 @@ export const education: Study[] = [
 		thesis:
 			'Towards Rebound-Focused Reinforcement Learning: Solving Deadlocks in Traffic Intersections',
 		supervisors: ['Dario Paccagnan', 'Panagiotis Angeloudis'],
+		// From the LaTeX CV of 2020, which printed them as running totals.
+		results: 'Dean’s List · Year 1 average 80.75% · Year 2 average 81.01%',
 		// Published with permission: the copyright is mine under Imperial's
 		// guidelines. Served from static/, which is why the 1.5 MB PDF is now
 		// tracked in git rather than ignored.
@@ -215,6 +258,19 @@ export type Funding = {
 // administrator; `share` answers the ad's actual question — whose money this is —
 // without inventing a figure, and gains the number when you have it.
 const allFunding: Funding[] = [
+	{
+		// Competitive and oversubscribed: 1.5 of the 4 months requested were granted,
+		// and the RTSG half of the request was declined on timing. Dated by the award
+		// rather than the funded period (early 2027), so the CV carries no future
+		// dates.
+		title: 'STAI CDT Impact Pathway Fund — post-submission stipend',
+		funder: 'UKRI',
+		start: '2026-10',
+		end: '2026-10',
+		role: 'studentship holder',
+		share: '1.5 months’ stipend, awarded to me personally',
+		url: 'https://safeandtrustedai.org/'
+	},
 	{
 		title: 'UKRI Centre for Doctoral Training in Safe and Trusted AI — PhD studentship',
 		funder: 'UKRI / EPSRC',
@@ -294,6 +350,7 @@ export const skills = {
 		'Java',
 		'Scala',
 		'Haskell',
+		'TypeScript',
 		'JavaScript',
 		'SQL',
 		'PyTorch',

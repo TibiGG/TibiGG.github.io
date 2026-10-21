@@ -34,14 +34,23 @@ CANDIDATES.push(
 export async function printToPdf(url, out) {
 	for (const chrome of CANDIDATES) {
 		try {
-			await run(chrome, [
-				'--headless',
-				'--disable-gpu',
-				'--no-sandbox',
-				'--no-pdf-header-footer',
-				`--print-to-pdf=${out}`,
-				url
-			]);
+			// A page that never finishes loading (a dev server reloading mid-print,
+			// say) would otherwise leave Chrome waiting forever and the PDF never
+			// rewritten. --timeout makes Chrome print whatever has loaded after
+			// 20s; the execFile timeout kills it outright if even that hangs.
+			await run(
+				chrome,
+				[
+					'--headless',
+					'--disable-gpu',
+					'--no-sandbox',
+					'--no-pdf-header-footer',
+					'--timeout=20000',
+					`--print-to-pdf=${out}`,
+					url
+				],
+				{ timeout: 60_000, killSignal: 'SIGKILL' }
+			);
 			return chrome;
 		} catch {
 			// Try the next candidate.

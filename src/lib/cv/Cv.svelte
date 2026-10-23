@@ -322,7 +322,7 @@
 			{/each}
 		{:else if k === 'review'}
 			{#each part('review', where) as r}
-				<div class="entry">
+				<div class="entry" class:line={cmp(k)}>
 					<p class="when">{r.years.join(', ')}</p>
 					<div>
 						{#if cmp(k)}
@@ -737,11 +737,16 @@
 		.compact .entry {
 			grid-template-columns: 6.5rem 1fr;
 			gap: 0.8rem;
-			margin-bottom: 0.5rem;
+			margin-bottom: 0.4rem;
 		}
 
 		.compact section {
 			margin-bottom: 1rem;
+		}
+
+		/* One-line entries (compact peer review) read as a list, not as blocks. */
+		.compact .entry.line {
+			margin-bottom: 0.15rem;
 		}
 
 		.compact h2 {

@@ -261,7 +261,11 @@
 									>{p.title}</a
 								>{:else}{p.title}{/if}
 						</h3>
-						<p class="org">{p.authors.join(', ')}</p>
+						<p class="org">
+							{#each p.authors as a, i}{#if i}{', '}{/if}{#if a === profile.name}<span class="me"
+										>{a}</span
+									>{:else}{a}{/if}{/each}
+						</p>
 						<p class="detail">
 							{p.venue}{#if p.status !== 'published'}{' · '}<em>{p.status}</em>{/if}
 						</p>
@@ -541,6 +545,12 @@
 		margin: 0 0 0.15rem;
 		font-size: 0.9rem;
 		color: var(--ink-soft);
+	}
+
+	/* Your name in an author list: a touch heavier, so the eye finds it. */
+	.me {
+		font-weight: 600;
+		color: var(--ink);
 	}
 
 	.detail {

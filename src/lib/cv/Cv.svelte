@@ -167,7 +167,7 @@
 	{@const intro = variant.intro?.[k]}
 	<section>
 		<h2>{heading(k)}</h2>
-		{#if intro && where === 'main'}
+		{#if intro && (where === 'main' || !variant.main.includes(k))}
 			<div class="intro">
 				{#if typeof intro === 'string'}<p>{intro}</p>{:else}{@render points(intro)}{/if}
 			</div>

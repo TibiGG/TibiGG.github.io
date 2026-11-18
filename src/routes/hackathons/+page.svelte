@@ -50,7 +50,7 @@
 					</a>
 				{/if}
 				{#each h.links as l}
-					<a class="btn ghost" href={l.url} target="_blank" rel="noopener noreferrer">{l.label}</a>
+					<a class="btn" class:ghost={!l.featured} href={l.url} target="_blank" rel="noopener noreferrer">{l.label}</a>
 				{/each}
 			</div>
 		</article>

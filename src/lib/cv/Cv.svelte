@@ -377,9 +377,11 @@
 							     the entries without reading every title. -->
 							{#if c.prize && compact}<span class="won"
 									><span class="badge">Prize</span> {c.prize}</span
-								>{' · '}{/if}{c.event}{#if variant.teamwork && c.team}{' · '}{c.team.lead
-									? 'Led a team of'
-									: 'Team of'}
+								>{' · '}{/if}{c.event}{#if variant.teamwork && c.team}{' · '}{c.team.solo
+									? 'Solo build in a team of'
+									: c.team.lead
+										? 'Led a team of'
+										: 'Team of'}
 								{c.team.size}{/if}
 						</p>
 						{#if c.challenge && !compact}

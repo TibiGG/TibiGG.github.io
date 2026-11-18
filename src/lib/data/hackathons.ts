@@ -105,7 +105,7 @@ export const hackathons: Hackathon[] = [
 		// the only coder; the one teammate advised, discussing the idea at length.
 		team: { size: 2, lead: true },
 		links: [
-			{ label: 'Demo', url: 'https://charge-bupa.vercel.app' },
+			{ label: 'Demo', url: 'https://charge-health.vercel.app' },
 			{ label: 'Event', url: 'https://www.adeline.co.uk/hackathon' }
 		]
 	},

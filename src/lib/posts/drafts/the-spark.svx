@@ -1,0 +1,11 @@
+---
+title: The Spark
+date: 2026-10-30
+summary: 'A haiku.'
+tags: ['draft']
+draft: true
+---
+
+Even in the cold,\
+Dark, your wit can find the light\
+That makes the world warm.
